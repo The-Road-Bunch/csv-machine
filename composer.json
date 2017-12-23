@@ -1,0 +1,13 @@
+{
+    "name": "theroadbunch/csv-machine",
+    "description": "A CSV manipulation library",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dan",
+            "email": "danmcadams@gmail.com"
+        }
+    ],
+    "require": {}
+}
