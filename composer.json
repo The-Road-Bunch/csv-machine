@@ -14,5 +14,7 @@
             "CsvMachine\\": "src/"
         }
     },
-    "require": {}
+    "require": {
+        "php": ">=7.0.25"
+    }
 }
