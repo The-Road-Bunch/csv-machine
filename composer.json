@@ -1,5 +1,5 @@
 {
-    "name": "theroadbunch/csv-machine",
+    "name": "theroadbunch/svmachine",
     "description": "A CSV manipulation library",
     "type": "library",
     "license": "MIT",
@@ -11,8 +11,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "CsvMachine\\": "src/",
-            "CsvMachine\\Tests\\": "tests/"
+            "SVMachine\\": "src/",
+            "SVMachine\\Tests\\": "tests/"
         }
     },
     "require": {
