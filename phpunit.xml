@@ -1,7 +1,7 @@
 <phpunit>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src/SVMachine</directory>
+            <directory suffix=".php">src/DSVMachine</directory>
         </whitelist>
     </filter>
 </phpunit>

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace CsvMachine\Tests;
+namespace DSVMachine\Tests;
 
 
 use PHPUnit\Framework\TestCase;
