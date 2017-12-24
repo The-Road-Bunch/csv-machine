@@ -9,5 +9,10 @@
             "email": "danmcadams@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "CsvMachine\\": "src/"
+        }
+    },
     "require": {}
 }
