@@ -1,6 +1,7 @@
 {
-    "name": "theroadbunch/svmachine",
-    "description": "A CSV manipulation library",
+    "name": "theroadbunch/dsvmachine",
+    "description": "A Delimiter-separated values manipulation library",
+    "keywords": [ "csv", "dsv", "comma", "delimiter" ],
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -11,8 +12,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "SVMachine\\": "src/",
-            "SVMachine\\Tests\\": "tests/"
+            "DSVMachine\\": "src/",
+            "DSVMachine\\Tests\\": "tests/"
         }
     },
     "require": {
