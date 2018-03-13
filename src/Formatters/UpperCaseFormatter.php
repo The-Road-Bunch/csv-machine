@@ -26,7 +26,7 @@ class UpperCaseFormatter extends Formatter
     public function __construct()
     {
         parent::__construct(function ($var) {
-            return strtoupper($var);
+            return mb_strtoupper($var);
         });
     }
 }
