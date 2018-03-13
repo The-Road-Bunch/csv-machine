@@ -71,10 +71,9 @@ class Header implements HeaderInterface
     public function getColumns(): array
     {
         $returnColumns = $this->columns;
-        if (!empty($this->formatters)) {
-            foreach ($this->formatters as $formatter) {
-                $returnColumns = $formatter->format($returnColumns);
-            }
+
+        foreach ($this->formatters as $formatter) {
+            $returnColumns = $formatter->format($returnColumns);
         }
         return $returnColumns;
     }
