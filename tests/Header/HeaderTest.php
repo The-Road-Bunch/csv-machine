@@ -14,6 +14,8 @@ namespace RoadBunch\Csv\Tests\Header;
 
 use PHPUnit\Framework\TestCase;
 use RoadBunch\Csv\Exceptions\InvalidHeaderArrayException;
+use RoadBunch\Csv\Formatters\UnderscoreToSpaceFormatter;
+use RoadBunch\Csv\Formatters\UpperCaseWordsFormatter;
 use RoadBunch\Csv\Header\Header;
 
 /**
@@ -66,6 +68,17 @@ class HeaderTest extends TestCase
 
         $header->addColumn('employee id');
         $this->assertCount(count($testHeaderArray) + 1, $header->getColumns());
+    }
+
+    public function testAddFormatters()
+    {
+        $header = new HeaderSpy(['first_name', 'last_name']);
+        $header->addFormatter(new UpperCaseWordsFormatter());
+        $this->assertCount(1, $header->getFormatters());
+        $header->addFormatter(new UnderscoreToSpaceFormatter());
+        $this->assertCount(2, $header->getFormatters());
+
+        $this->assertEquals(['First Name', 'Last Name'], $header->getColumns());
     }
 
     /**

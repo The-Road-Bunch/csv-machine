@@ -13,6 +13,7 @@ namespace RoadBunch\Csv\Header;
 
 
 use RoadBunch\Csv\Exceptions\InvalidHeaderArrayException;
+use RoadBunch\Csv\Formatters\FormatterInterface;
 
 /**
  * Class Header
@@ -24,6 +25,8 @@ class Header implements HeaderInterface
 {
     /** @var array */
     protected $columns;
+    /** @var FormatterInterface[] */
+    protected $formatters = [];
 
     /**
      * Header constructor.
@@ -55,10 +58,24 @@ class Header implements HeaderInterface
     }
 
     /**
+     * @param FormatterInterface $formatter
+     */
+    public function addFormatter(FormatterInterface $formatter)
+    {
+        $this->formatters[] = $formatter;
+    }
+
+    /**
      * @return array
      */
     public function getColumns(): array
     {
-        return $this->columns;
+        $returnColumns = $this->columns;
+        if (!empty($this->formatters)) {
+            foreach ($this->formatters as $formatter) {
+                $returnColumns = $formatter->format($returnColumns);
+            }
+        }
+        return $returnColumns;
     }
 }
