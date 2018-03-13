@@ -25,7 +25,8 @@
         "psr/log": "^1.0.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.4"
+        "phpunit/phpunit": "^6.4",
+        "symfony/var-dumper": "^3.4"
     },
     "suggest": {
         "monolog/monolog": "Allows for logging of the csv machining."
