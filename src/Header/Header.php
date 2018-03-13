@@ -9,11 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace RoadBunch\Csv;
+namespace RoadBunch\Csv\Header;
 
 
 use RoadBunch\Csv\Exceptions\InvalidHeaderArrayException;
-use RoadBunch\Csv\Interfaces\HeaderInterface;
 
 /**
  * Class Header
@@ -23,12 +22,13 @@ use RoadBunch\Csv\Interfaces\HeaderInterface;
  */
 class Header implements HeaderInterface
 {
+    /** @var array */
     protected $columns;
 
     /**
      * Header constructor.
      *
-     * @param array $columns
+     * @param array $columns array of strings of column names
      *
      * @throws InvalidHeaderArrayException
      */

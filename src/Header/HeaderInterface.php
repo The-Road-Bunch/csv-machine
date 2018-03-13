@@ -9,12 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace RoadBunch\Csv\Interfaces;
+namespace RoadBunch\Csv\Header;
+
 
 /**
  * Interface HeaderInterface
  *
- * @package RoadBunch\Csv\Interfaces
+ * @author  Dan McAdams
+ * @package RoadBunch\Csv\Header
  */
 interface HeaderInterface
 {

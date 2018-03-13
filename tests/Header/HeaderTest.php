@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace RoadBunch\Csv\Tests;
+namespace RoadBunch\Csv\Tests\Header;
 
 
 use PHPUnit\Framework\TestCase;
 use RoadBunch\Csv\Exceptions\InvalidHeaderArrayException;
-use RoadBunch\Csv\Header;
+use RoadBunch\Csv\Header\Header;
 
 /**
  * Class HeaderTest
