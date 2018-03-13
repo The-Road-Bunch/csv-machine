@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * This file is part of the Csv-Machine package.
@@ -59,13 +59,13 @@ class HeaderTest extends TestCase
 
     public function testCreateFromArray()
     {
-        $testHeader = $this->getTestHeader();
+        $testHeaderArray = $this->getTestHeaderArray();
 
-        $header = new Header($testHeader);
-        $this->assertCount(count($testHeader), $header->getColumns());
+        $header = new Header($testHeaderArray);
+        $this->assertCount(count($testHeaderArray), $header->getColumns());
 
         $header->addColumn('employee id');
-        $this->assertCount(count($testHeader)+1, $header->getColumns());
+        $this->assertCount(count($testHeaderArray) + 1, $header->getColumns());
     }
 
     /**
@@ -86,8 +86,8 @@ class HeaderTest extends TestCase
     /**
      * @return array
      */
-    private function getTestHeader(): array
+    private function getTestHeaderArray(): array
     {
-        return ['firstname', 'lastname', 'birthday', 'phone number', 'email address'];
+        return ['first_name', 'last_name', 'birthday', 'phone_number', 'email_address'];
     }
 }
