@@ -12,7 +12,7 @@
 namespace RoadBunch\Csv\Header;
 
 
-use RoadBunch\Csv\Exception\InvalidHeaderArrayException;
+use RoadBunch\Csv\Exception\InvalidInputArrayException;
 use RoadBunch\Csv\Formatter\FormatterInterface;
 
 /**
@@ -33,13 +33,13 @@ class Header implements HeaderInterface
      *
      * @param array $columns array of strings of column names
      *
-     * @throws InvalidHeaderArrayException
+     * @throws InvalidInputArrayException
      */
     public function __construct(array $columns = [])
     {
         foreach ($columns as $column) {
             if (!is_string($column)) {
-                throw new InvalidHeaderArrayException('Columns must be array of (string)');
+                throw new InvalidInputArrayException('Columns must be array of (string)');
             }
         }
         $this->columns = $columns;

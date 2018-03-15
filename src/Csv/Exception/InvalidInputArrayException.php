@@ -12,6 +12,6 @@
 namespace RoadBunch\Csv\Exception;
 
 
-class InvalidHeaderArrayException extends \Exception
+class InvalidInputArrayException extends \Exception
 {
 }

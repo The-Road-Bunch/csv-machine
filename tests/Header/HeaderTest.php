@@ -13,7 +13,7 @@ namespace RoadBunch\Csv\Tests\Header;
 
 
 use PHPUnit\Framework\TestCase;
-use RoadBunch\Csv\Exception\InvalidHeaderArrayException;
+use RoadBunch\Csv\Exception\InvalidInputArrayException;
 use RoadBunch\Csv\Formatter\UnderscoreToSpaceFormatter;
 use RoadBunch\Csv\Formatter\UpperCaseWordsFormatter;
 use RoadBunch\Csv\Header\Header;
@@ -85,11 +85,11 @@ class HeaderTest extends TestCase
     }
 
     /**
-     * @throws InvalidHeaderArrayException
+     * @throws InvalidInputArrayException
      */
     public function testArrayOfNonStrings()
     {
-        $this->expectException(InvalidHeaderArrayException::class);
+        $this->expectException(InvalidInputArrayException::class);
 
         $multiArray = [
             ['an array'],
