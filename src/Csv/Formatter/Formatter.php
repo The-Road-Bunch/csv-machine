@@ -10,6 +10,7 @@
  */
 
 namespace RoadBunch\Csv\Formatter;
+use RoadBunch\Csv\Exception\FormatterResultException;
 
 
 /**
@@ -34,19 +35,44 @@ class Formatter implements FormatterInterface
     }
 
     /**
-     * @param array $header an array of strings to be formatted
+     * @param array $data an array of strings to be formatted
      *
      * @return array
+     * @throws \InvalidArgumentException|FormatterResultException
      */
-    public function format(array $header): array
+    public function format(array $data): array
     {
         $formatted = [];
-        foreach ($header as $value) {
-            if (!is_string($value)) {
-                throw new \InvalidArgumentException('All elements of the array must be strings');
-            }
-            $formatted[] = call_user_func($this->callback, $value);
+        foreach ($data as $element) {
+            // assert element to format is string
+            $this->assertString($element);
+            // assert resulting element is string
+            $this->assertResultString($formattedElement = call_user_func($this->callback, $element));
+
+            $formatted[] = $formattedElement;
         }
         return $formatted;
+    }
+
+    /**
+     * @param $value
+     * @throws \InvalidArgumentException
+     */
+    protected function assertString($value)
+    {
+        if (!is_string($value)) {
+            throw new \InvalidArgumentException('All elements of the array must be strings');
+        }
+    }
+
+    /**
+     * @param $result
+     * @throws FormatterResultException
+     */
+    protected function assertResultString($result)
+    {
+        if (!is_string($result)) {
+            throw new FormatterResultException('Formatter must result in an array of strings');
+        }
     }
 }
