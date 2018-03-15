@@ -19,7 +19,7 @@ use RoadBunch\Csv\Formatter\FormatterInterface;
  * Class Header
  *
  * @author  Dan McAdams
- * @package RoadBunch\Csv
+ * @package RoadBunch\Csv\Header
  */
 class Header implements HeaderInterface
 {

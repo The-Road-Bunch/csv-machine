@@ -16,7 +16,7 @@ namespace RoadBunch\Csv\Formatter;
  * Interface FormatterInterface
  *
  * @author  Dan McAdams
- * @package RoadBunch\Csv\Formatters
+ * @package RoadBunch\Csv\Formatter
  */
 interface FormatterInterface
 {

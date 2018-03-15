@@ -16,7 +16,7 @@ namespace RoadBunch\Csv\Formatter;
  * Class UnderscoreToSpaceFormatter
  *
  * @author  Dan McAdams
- * @package RoadBunch\Csv\Formatters
+ * @package RoadBunch\Csv\Formatter
  */
 class UnderscoreToSpaceFormatter extends Formatter
 {

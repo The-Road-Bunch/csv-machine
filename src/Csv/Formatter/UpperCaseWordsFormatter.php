@@ -16,7 +16,7 @@ namespace RoadBunch\Csv\Formatter;
  * Class UpperCaseWordsFormatter
  *
  * @author  Dan McAdams
- * @package RoadBunch\Csv\Formatters
+ * @package RoadBunch\Csv\Formatter
  */
 class UpperCaseWordsFormatter extends Formatter
 {
