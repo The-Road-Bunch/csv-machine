@@ -12,7 +12,9 @@
 namespace RoadBunch\Csv\Tests\Formatter;
 
 
+use function foo\func;
 use PHPUnit\Framework\TestCase;
+use RoadBunch\Csv\Exception\FormatterResultException;
 use RoadBunch\Csv\Formatter\Formatter;
 
 /**
@@ -58,5 +60,16 @@ class FormatterTest extends TestCase
         $testArray      = ['first_name', '1_2_3_4', 'email-address'];
         $formattedArray = $formatter->format($testArray);
         $this->assertEquals(['first name', '1 2 3 4', 'email-address'], $formattedArray);
+    }
+
+    public function testFormatterReturnsNonArray()
+    {
+        $this->expectException(FormatterResultException::class);
+        $formatter = new Formatter(function ($var) {
+            return explode('_', $var);
+        });
+
+        $testArray = ['first_name'];
+        $formatter->format($testArray);
     }
 }
