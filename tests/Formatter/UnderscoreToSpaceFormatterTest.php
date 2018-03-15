@@ -9,32 +9,32 @@
  * file that was distributed with this source code.
  */
 
-namespace RoadBunch\Csv\Tests\Formatters;
+namespace RoadBunch\Csv\Tests\Formatter;
 
 
 use PHPUnit\Framework\TestCase;
-use RoadBunch\Csv\Formatters\UpperCaseWordsFormatter;
+use RoadBunch\Csv\Formatter\UnderscoreToSpaceFormatter;
 
 /**
- * Class UpperCaseWordsFormatterTest
+ * Class UnderscoreToSpaceFormatterTest
  *
  * @author  Dan McAdams
  * @package RoadBunch\Csv\Tests\Formatters
  */
-class UpperCaseWordsFormatterTest extends TestCase
+class UnderscoreToSpaceFormatterTest extends TestCase
 {
     public function testCreateFormatter()
     {
-        $formatter = new UpperCaseWordsFormatter();
+        $formatter = new UnderscoreToSpaceFormatter();
         $this->assertNotNull($formatter);
     }
 
-    public function testConvertsLowerCaseToUpperCase()
+    public function testReplacesUnderscoresWithSpaces()
     {
-        $testLowerCaseHeader = ['first name', 'last_name', 'email-address', 'user.id'];
-        $testUpperCaseHeader = ['First Name', 'Last_Name', 'Email-Address', 'User.Id'];
+        $testLowerCaseHeader = ['first___name', 'last_name', 'email address'];
+        $testUpperCaseHeader = ['first   name', 'last name', 'email address'];
 
-        $formatter   = new UpperCaseWordsFormatter();
+        $formatter       = new UnderscoreToSpaceFormatter();
         $formattedHeader = $formatter->format($testLowerCaseHeader);
 
         $this->assertEquals($testUpperCaseHeader, $formattedHeader);

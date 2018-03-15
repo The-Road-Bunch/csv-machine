@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace RoadBunch\Csv\Tests\Formatters;
+namespace RoadBunch\Csv\Tests\Formatter;
 
 
 use PHPUnit\Framework\TestCase;
-use RoadBunch\Csv\Formatters\Formatter;
+use RoadBunch\Csv\Formatter\Formatter;
 
 /**
  * Class FormatterTest

@@ -9,24 +9,26 @@
  * file that was distributed with this source code.
  */
 
-namespace RoadBunch\Csv\Formatters;
+namespace RoadBunch\Csv\Formatter;
 
 
 /**
- * Class UpperCaseFormatter
+ * Class UpperCaseWordsFormatter
  *
  * @author  Dan McAdams
  * @package RoadBunch\Csv\Formatters
  */
-class UpperCaseFormatter extends Formatter
+class UpperCaseWordsFormatter extends Formatter
 {
     /**
-     * UpperCaseFormatter constructor.
+     * UpperCaseWordsFormatter constructor.
      */
     public function __construct()
     {
-        parent::__construct(function ($var) {
-            return mb_strtoupper($var);
-        });
+        $ucaseWords = function($var) {
+            $del = [" ", "-", "_", "."];
+            return ucwords($var, implode('', $del));
+        };
+        parent::__construct($ucaseWords);
     }
 }

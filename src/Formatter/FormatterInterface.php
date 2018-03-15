@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace RoadBunch\Csv\Formatters;
+namespace RoadBunch\Csv\Formatter;
 
 
 /**

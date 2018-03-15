@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace RoadBunch\Csv\Formatters;
+namespace RoadBunch\Csv\Formatter;
 
 
 /**
@@ -40,13 +40,13 @@ class Formatter implements FormatterInterface
      */
     public function format(array $header): array
     {
-        $ret = [];
+        $formatted = [];
         foreach ($header as $value) {
             if (!is_string($value)) {
                 throw new \InvalidArgumentException('All elements of the array must be strings');
             }
-            $ret[] = call_user_func($this->callback, $value);
+            $formatted[] = call_user_func($this->callback, $value);
         }
-        return $ret;
+        return $formatted;
     }
 }

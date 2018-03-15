@@ -9,32 +9,32 @@
  * file that was distributed with this source code.
  */
 
-namespace RoadBunch\Csv\Tests\Formatters;
+namespace RoadBunch\Csv\Tests\Formatter;
 
 
 use PHPUnit\Framework\TestCase;
-use RoadBunch\Csv\Formatters\UpperCaseFormatter;
+use RoadBunch\Csv\Formatter\UpperCaseWordsFormatter;
 
 /**
- * Class UpperCaseFormatterTest
+ * Class UpperCaseWordsFormatterTest
  *
  * @author  Dan McAdams
  * @package RoadBunch\Csv\Tests\Formatters
  */
-class UpperCaseFormatterTest extends TestCase
+class UpperCaseWordsFormatterTest extends TestCase
 {
     public function testCreateFormatter()
     {
-        $formatter = new UpperCaseFormatter();
+        $formatter = new UpperCaseWordsFormatter();
         $this->assertNotNull($formatter);
     }
 
     public function testConvertsLowerCaseToUpperCase()
     {
-        $testLowerCaseHeader = ['firstname', 'lastname', 'email'];
-        $testUpperCaseHeader = ['FIRSTNAME', 'LASTNAME', 'EMAIL'];
+        $testLowerCaseHeader = ['first name', 'last_name', 'email-address', 'user.id'];
+        $testUpperCaseHeader = ['First Name', 'Last_Name', 'Email-Address', 'User.Id'];
 
-        $formatter   = new UpperCaseFormatter();
+        $formatter   = new UpperCaseWordsFormatter();
         $formattedHeader = $formatter->format($testLowerCaseHeader);
 
         $this->assertEquals($testUpperCaseHeader, $formattedHeader);

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace RoadBunch\Csv\Exceptions;
+namespace RoadBunch\Csv\Exception;
 
 
 class InvalidHeaderArrayException extends \Exception

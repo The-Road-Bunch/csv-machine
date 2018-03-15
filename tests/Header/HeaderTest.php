@@ -13,9 +13,9 @@ namespace RoadBunch\Csv\Tests\Header;
 
 
 use PHPUnit\Framework\TestCase;
-use RoadBunch\Csv\Exceptions\InvalidHeaderArrayException;
-use RoadBunch\Csv\Formatters\UnderscoreToSpaceFormatter;
-use RoadBunch\Csv\Formatters\UpperCaseWordsFormatter;
+use RoadBunch\Csv\Exception\InvalidHeaderArrayException;
+use RoadBunch\Csv\Formatter\UnderscoreToSpaceFormatter;
+use RoadBunch\Csv\Formatter\UpperCaseWordsFormatter;
 use RoadBunch\Csv\Header\Header;
 
 /**
@@ -46,16 +46,19 @@ class HeaderTest extends TestCase
         $this->assertCount(1, $header->getColumns());
     }
 
-    public function testSkipDuplicateColumns()
+    public function testAddMultipleColumns()
     {
         $header = new Header();
 
-        // test adding duplicate columns
-        $header->addColumn('Test Column Three This should only be added once');
-        $header->addColumn('Test Column Three This should only be added once');
-        $header->addColumn('Test Column Four');
-        $header->addColumn('Test Column Five');
+        $this->assertCount(0, $header->getColumns());
 
+        $header->addColumn('one');
+        $this->assertCount(1, $header->getColumns());
+
+        $header->addColumn('two');
+        $this->assertCount(2, $header->getColumns());
+
+        $header->addColumn('three');
         $this->assertCount(3, $header->getColumns());
     }
 
