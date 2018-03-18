@@ -12,10 +12,16 @@
 namespace RoadBunch\Csv;
 
 
-class Csv
+use RoadBunch\Csv\Header\Header;
+use RoadBunch\Csv\Header\HeaderInterface;
+
+class ArrayToCsv
 {
     /** @var array */
-    protected $rawData = [];
+    protected $rawData;
+
+    /** @var HeaderInterface */
+    protected $header;
 
     /**
      * Csv constructor.
@@ -39,8 +45,24 @@ class Csv
      *
      * @param array $data
      */
-    public function __construct(array $data = [])
+    public function __construct(array $data)
     {
         $this->rawData = $data;
+    }
+
+    /**
+     * Will set the header array from the indexes of the two dimensional array
+     * if the array is empty, the header will be set to an empty array.
+     */
+    public function setHeaderFromIndexes()
+    {
+        if (empty($this->rawData)) {
+            $this->header = new Header([]);
+            return;
+        }
+        if ((!isset($this->rawData[0])) || (!is_array($this->rawData[0]))) {
+            throw new \InvalidArgumentException('Expected two dimensional array');
+        }
+        $this->header = new Header(array_keys($this->rawData[0]));
     }
 }

@@ -12,12 +12,27 @@
 namespace RoadBunch\Csv\Tests\Csv;
 
 
-use RoadBunch\Csv\Csv;
+use RoadBunch\Csv\ArrayToCsv;
+use RoadBunch\Csv\Formatter\FormatterInterface;
 
-class CsvSpy extends Csv
+/**
+ * Class ArrayToCsvSpy
+ *
+ * @author  Dan McAdams
+ * @package RoadBunch\Csv\Tests\Csv
+ */
+class ArrayToCsvSpy extends ArrayToCsv
 {
     public function getRawData()
     {
         return $this->rawData;
+    }
+
+    /**
+     * @return \RoadBunch\Csv\Header\HeaderInterface
+     */
+    public function getHeader()
+    {
+        return $this->header;
     }
 }
