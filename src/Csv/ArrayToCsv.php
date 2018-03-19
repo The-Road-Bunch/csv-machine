@@ -15,6 +15,12 @@ namespace RoadBunch\Csv;
 use RoadBunch\Csv\Header\Header;
 use RoadBunch\Csv\Header\HeaderInterface;
 
+/**
+ * Class ArrayToCsv
+ *
+ * @author  Dan McAdams
+ * @package RoadBunch\Csv
+ */
 class ArrayToCsv
 {
     /** @var array */

@@ -11,7 +11,12 @@
 
 namespace RoadBunch\Csv\Exception;
 
-
+/**
+ * Class InvalidInputArrayException
+ *
+ * @author  Dan McAdams
+ * @package RoadBunch\Csv\Exception
+ */
 class InvalidInputArrayException extends \Exception
 {
 }

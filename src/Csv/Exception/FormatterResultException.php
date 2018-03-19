@@ -11,8 +11,12 @@
 
 namespace RoadBunch\Csv\Exception;
 
-
+/**
+ * Class FormatterResultException
+ *
+ * @author  Dan McAdams
+ * @package RoadBunch\Csv\Exception
+ */
 class FormatterResultException extends \Exception
 {
-
 }
