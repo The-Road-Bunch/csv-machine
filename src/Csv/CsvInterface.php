@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file is part of the Csv-Machine package.
  *
@@ -20,20 +19,23 @@ namespace RoadBunch\Csv;
  */
 interface CsvInterface
 {
-    // delimiter
-    const DELIMITER_COMMA     = ",";
-    const DELIMITER_PIPE      = "|";
-    const DELIMITER_SEMICOLON = ";";
-    const DELIMITER_TAB       = "\t";
+    /**
+     * @param string $delimiter
+     */
+    public function setDelimiter(string $delimiter);
 
-    // new line
-    const NEWLINE_LF   = "\n";
-    const NEWLINE_CR   = "\r";
-    const NEWLINE_CRLF = "\r\n";
+    /**
+     * @param string $enclosure
+     */
+    public function setEnclosure(string $enclosure);
 
-    // enclosure
-    const ENCLOSURE_QUOTE = '"';
+    /**
+     * @param string $newline
+     */
+    public function setNewline(string $newline);
 
-    // escape char
-    const ESCAPE_CHAR = "\\";
+    /**
+     * @param string $escape
+     */
+    public function setEscape(string $escape);
 }
