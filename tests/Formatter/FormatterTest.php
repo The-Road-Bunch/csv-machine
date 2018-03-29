@@ -41,7 +41,7 @@ class FormatterTest extends TestCase
         $formatter->format($multiArray);
     }
 
-    public function testFormatUpperCase()
+    public function testFormatArrayStrings()
     {
         $formatter = new Formatter(function ($var) {
             return strtoupper($var);
@@ -49,17 +49,6 @@ class FormatterTest extends TestCase
 
         $testArray = ['one', 'two', 'three'];
         $this->assertEquals(['ONE', 'TWO', 'THREE'], $formatter->format($testArray));
-    }
-
-    public function testFormatReplaceUnderscoreWithSpace()
-    {
-        $formatter = new Formatter(function ($var) {
-            return str_replace('_', ' ', $var);
-        });
-
-        $testArray      = ['first_name', '1_2_3_4', 'email-address'];
-        $formattedArray = $formatter->format($testArray);
-        $this->assertEquals(['first name', '1 2 3 4', 'email-address'], $formattedArray);
     }
 
     public function testFormatterReturnsNonArray()
