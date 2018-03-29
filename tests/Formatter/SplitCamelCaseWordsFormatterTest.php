@@ -31,8 +31,8 @@ class SplitCamelCaseWordsFormatterTest extends TestCase
 
     public function testSplitCamelCase()
     {
-        $ccHeader = ['TestString', 'TheseShouldSeparate', 'AndCSVShouldWork'];
-        $expected = ['Test String', 'These Should Separate', 'And CSV Should Work'];
+        $ccHeader = ['TestString', 'TheseShouldSeparate', 'AndCSVShouldWork', 'andThisShouldWork'];
+        $expected = ['Test String', 'These Should Separate', 'And CSV Should Work', 'and This Should Work'];
 
         $formatter = new SplitCamelCaseWordsFormatter();
         $formattedHeader = $formatter->format($ccHeader);
