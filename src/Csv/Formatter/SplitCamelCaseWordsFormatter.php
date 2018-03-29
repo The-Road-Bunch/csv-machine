@@ -12,11 +12,20 @@
 namespace RoadBunch\Csv\Formatter;
 
 
+/**
+ * Class SplitCamelCaseWordsFormatter
+ *
+ * @author  Dan McAdams
+ * @package RoadBunch\Csv\Formatter
+ */
 class SplitCamelCaseWordsFormatter implements FormatterInterface
 {
     /** @var FormatterInterface */
     protected $formatter;
 
+    /**
+     * SplitCamelCaseWordsFormatter constructor.
+     */
     public function __construct()
     {
         // @todo Make sure to uppercase the first word of a string like userFirstName -> User First Name
