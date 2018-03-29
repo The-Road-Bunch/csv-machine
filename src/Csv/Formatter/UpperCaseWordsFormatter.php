@@ -18,8 +18,11 @@ namespace RoadBunch\Csv\Formatter;
  * @author  Dan McAdams
  * @package RoadBunch\Csv\Formatter
  */
-class UpperCaseWordsFormatter extends Formatter
+class UpperCaseWordsFormatter implements FormatterInterface
 {
+    /** @var FormatterInterface */
+    protected $formatter;
+
     /**
      * UpperCaseWordsFormatter constructor.
      */
@@ -29,6 +32,16 @@ class UpperCaseWordsFormatter extends Formatter
             $del = [" ", "-", "_", "."];
             return ucwords($var, implode('', $del));
         };
-        parent::__construct($ucaseWords);
+        $this->formatter = new Formatter($ucaseWords);
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
+    public function format(array $data): array
+    {
+        return $this->formatter->format($data);
     }
 }
