@@ -14,6 +14,8 @@ namespace RoadBunch\Csv\Tests\Header;
 
 use PHPUnit\Framework\TestCase;
 use RoadBunch\Csv\Exception\InvalidInputArrayException;
+use RoadBunch\Csv\Formatter\Formatter;
+use RoadBunch\Csv\Formatter\SplitCamelCaseWordsFormatter;
 use RoadBunch\Csv\Formatter\UnderscoreToSpaceFormatter;
 use RoadBunch\Csv\Formatter\UpperCaseWordsFormatter;
 use RoadBunch\Csv\Header\Header;
@@ -75,13 +77,16 @@ class HeaderTest extends TestCase
 
     public function testAddFormatters()
     {
-        $header = new HeaderSpy(['first_name', 'last_name']);
-        $header->addFormatter(new UpperCaseWordsFormatter());
-        $this->assertCount(1, $header->getFormatters());
+        $header = new HeaderSpy(['first_name', 'last_name', 'camelCased']);
         $header->addFormatter(new UnderscoreToSpaceFormatter());
+        $this->assertCount(1, $header->getFormatters());
+        $header->addFormatter(new UpperCaseWordsFormatter());
         $this->assertCount(2, $header->getFormatters());
+        $header->addFormatter(new SplitCamelCaseWordsFormatter());
+        $this->assertCount(3, $header->getFormatters());
 
-        $this->assertEquals(['First Name', 'Last Name'], $header->getColumns());
+        $formattedHeader = $header->getColumns();
+        $this->assertEquals(['First Name', 'Last Name', 'Camel Cased'], $formattedHeader);
     }
 
     /**
