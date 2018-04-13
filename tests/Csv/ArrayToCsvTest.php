@@ -57,7 +57,7 @@ class ArrayToCsvTest extends TestCase
         $csv = new ArrayToCsvSpy($data);
         $csv->setHeaderFromIndexes();
         $this->assertInstanceOf(HeaderInterface::class, $csv->getHeader());
-        $this->assertEquals([], $csv->getHeader()->getColumns());
+        $this->assertEquals([], $csv->getHeader()->getFormattedColumns());
     }
 
     public function testSetHeaderFromIndexes()
@@ -68,7 +68,7 @@ class ArrayToCsvTest extends TestCase
         $csv->setHeaderFromIndexes();
 
         $this->assertInstanceOf(HeaderInterface::class, $csv->getHeader());
-        $this->assertEquals(array_keys($data[0]), $csv->getHeader()->getColumns());
+        $this->assertEquals(array_keys($data[0]), $csv->getHeader()->getFormattedColumns());
     }
 
     public function getSampleCsvData(): array
