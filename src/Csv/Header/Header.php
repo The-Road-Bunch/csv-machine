@@ -25,6 +25,7 @@ class Header implements HeaderInterface
 {
     /** @var array */
     protected $columns;
+
     /** @var FormatterInterface[] */
     protected $formatters = [];
 
@@ -57,16 +58,18 @@ class Header implements HeaderInterface
 
     /**
      * @param FormatterInterface $formatter
+     * @return HeaderInterface
      */
-    public function addFormatter(FormatterInterface $formatter)
+    public function addFormatter(FormatterInterface $formatter): HeaderInterface
     {
         $this->formatters[] = $formatter;
+        return $this;
     }
 
     /**
      * @return array
      */
-    public function getColumns(): array
+    public function getFormattedColumns(): array
     {
         $columns = $this->columns;
 
