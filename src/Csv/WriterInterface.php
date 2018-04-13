@@ -17,10 +17,16 @@ namespace RoadBunch\Csv;
  * @author  Dan McAdams
  * @package RoadBunch\Csv
  */
-interface CsvWriterInterface
+interface WriterInterface
 {
     /**
      * @param array $header
      */
     public function setHeader(array $header);
+
+    /**
+     * @param array $row
+     * @return WriterInterface
+     */
+    public function addRow(array $row): WriterInterface;
 }
