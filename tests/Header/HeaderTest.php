@@ -19,6 +19,7 @@ use RoadBunch\Csv\Formatter\SplitCamelCaseWordsFormatter;
 use RoadBunch\Csv\Formatter\UnderscoreToSpaceFormatter;
 use RoadBunch\Csv\Formatter\UpperCaseWordsFormatter;
 use RoadBunch\Csv\Header\Header;
+use RoadBunch\Csv\Header\HeaderInterface;
 
 /**
  * Class HeaderTest
@@ -37,7 +38,7 @@ class HeaderTest extends TestCase
     public function testGetColumns()
     {
         $header = new Header();
-        $this->assertInternalType('array', $header->getColumns());
+        $this->assertInternalType('array', $header->getFormattedColumns());
     }
 
     public function testAddColumn()
@@ -45,23 +46,23 @@ class HeaderTest extends TestCase
         $header = new Header();
         $header->addColumn('First Name');
 
-        $this->assertCount(1, $header->getColumns());
+        $this->assertCount(1, $header->getFormattedColumns());
     }
 
     public function testAddMultipleColumns()
     {
         $header = new Header();
 
-        $this->assertCount(0, $header->getColumns());
+        $this->assertCount(0, $header->getFormattedColumns());
 
         $header->addColumn('one');
-        $this->assertCount(1, $header->getColumns());
+        $this->assertCount(1, $header->getFormattedColumns());
 
         $header->addColumn('two');
-        $this->assertCount(2, $header->getColumns());
+        $this->assertCount(2, $header->getFormattedColumns());
 
         $header->addColumn('three');
-        $this->assertCount(3, $header->getColumns());
+        $this->assertCount(3, $header->getFormattedColumns());
     }
 
     public function testCreateFromArray()
@@ -69,10 +70,16 @@ class HeaderTest extends TestCase
         $testHeaderArray = $this->getTestHeaderArray();
 
         $header = new Header($testHeaderArray);
-        $this->assertCount(count($testHeaderArray), $header->getColumns());
+        $this->assertCount(count($testHeaderArray), $header->getFormattedColumns());
 
         $header->addColumn('employee id');
-        $this->assertCount(count($testHeaderArray) + 1, $header->getColumns());
+        $this->assertCount(count($testHeaderArray) + 1, $header->getFormattedColumns());
+    }
+
+    public function testAddFormatterReturnsHeader()
+    {
+        $header = new Header([]);
+        $this->assertInstanceOf(HeaderInterface::class, $header->addFormatter(new Formatter(function () {})));
     }
 
     public function testAddFormatters()
@@ -85,7 +92,7 @@ class HeaderTest extends TestCase
         $header->addFormatter(new SplitCamelCaseWordsFormatter());
         $this->assertCount(3, $header->getFormatters());
 
-        $formattedHeader = $header->getColumns();
+        $formattedHeader = $header->getFormattedColumns();
         $this->assertEquals(['First Name', 'Last Name', 'Camel Cased'], $formattedHeader);
     }
 
