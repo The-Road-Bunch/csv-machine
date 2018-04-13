@@ -28,7 +28,6 @@ class SplitCamelCaseWordsFormatter implements FormatterInterface
      */
     public function __construct()
     {
-        // @todo Make sure to uppercase the first word of a string like userFirstName -> User First Name
         $callback = function ($var) {
             $regEx  = '/(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/x';
             $words  = preg_split($regEx, $var);

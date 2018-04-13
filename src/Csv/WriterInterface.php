@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Csv-Machine package.
@@ -12,18 +12,15 @@
 namespace RoadBunch\Csv;
 
 /**
- * Class Delimiter
- *
- * Constants for delimiter characters
+ * Interface CsvWriterInterface
  *
  * @author  Dan McAdams
  * @package RoadBunch\Csv
  */
-class Delimiter
+interface CsvWriterInterface
 {
-    const DELIMITER_COMMA     = ",";
-    const DELIMITER_PIPE      = "|";
-    const DELIMITER_SEMICOLON = ";";
-    const DELIMITER_COLON     = ":";
-    const DELIMITER_TAB       = "\t";
+    /**
+     * @param array $header
+     */
+    public function setHeader(array $header);
 }
