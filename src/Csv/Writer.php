@@ -24,9 +24,6 @@ class Writer extends Csv implements WriterInterface
     /** @var array */
     protected $header;
 
-    /** @var string */
-    protected $filename;
-
     /** @var array */
     protected $rows = [];
 
@@ -37,22 +34,6 @@ class Writer extends Csv implements WriterInterface
     {
         $this->header = $header;
         array_unshift($this->rows, $header);
-    }
-
-    /**
-     * Writer constructor.
-     *
-     * @param string $filename
-     * @throws \Exception
-     */
-    public function __construct(string $filename)
-    {
-        $this->filename = $filename;
-
-        // attempt to open the file one time
-        // this will create the file if it doesn't exist
-        $handle = $this->openStream();
-        $this->closeStream($handle);
     }
 
     /**
@@ -81,10 +62,13 @@ class Writer extends Csv implements WriterInterface
 
     /**
      * Write the CSV to the stream
+     *
+     * @param string $filename
+     * @throws \Exception
      */
-    public function write()
+    public function write(string $filename)
     {
-        $handle = $this->openStream();
+        $handle = $this->openStream($filename);
 
         foreach ($this->rows as $row) {
             fputcsv($handle, $row, $this->delimiter, $this->enclosure, $this->escape);
@@ -94,17 +78,21 @@ class Writer extends Csv implements WriterInterface
     }
 
     /**
+     * @param string $filename
      * @return bool|resource
      * @throws \Exception
      */
-    private function openStream()
+    private function openStream(string $filename)
     {
-        if ($handle = fopen($this->filename, 'w+')) {
+        if ($handle = fopen($filename, 'w+')) {
             return $handle;
         }
-        throw new \Exception(sprintf('Cannot open steam: %s', $this->filename));
+        throw new \Exception(sprintf('Cannot open steam: %s', $filename));
     }
 
+    /**
+     * @param $handle
+     */
     private function closeStream($handle)
     {
         fclose($handle);

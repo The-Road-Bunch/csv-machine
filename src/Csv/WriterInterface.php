@@ -32,6 +32,7 @@ interface WriterInterface
 
     /**
      * Write the CSV to the stream
+     * @param string $filename
      */
-    public function write();
+    public function write(string $filename);
 }

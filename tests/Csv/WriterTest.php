@@ -39,19 +39,13 @@ class WriterTest extends TestCase
 
     public function testCreateWriter()
     {
-        $writer = new WriterSpy($this->filename);
-        $this->assertEquals($this->filename, $writer->getFilename());
-    }
-
-    public function testCreateFile()
-    {
-        new Csv\Writer($this->filename);
-        $this->assertTrue(is_file($this->filename), 'File does not exist');
+        $writer = new WriterSpy();
+        $this->assertNotNull($writer);
     }
 
     public function testAddRow()
     {
-        $writer = new WriterSpy($this->filename);
+        $writer = new WriterSpy();
         $rowOne = ['Dan', 'McAdams'];
         $rowTwo = ['Lara', 'McAdams'];
 
@@ -64,7 +58,7 @@ class WriterTest extends TestCase
     public function testAddRowsNotArrayOfArrays()
     {
         $this->expectException(Csv\Exception\InvalidInputArrayException::class);
-        $writer = new Csv\Writer($this->filename);
+        $writer = new Csv\Writer();
         $rows   = ['Dan', 'McAdams'];
 
         $writer->addRows($rows);
@@ -72,7 +66,7 @@ class WriterTest extends TestCase
 
     public function testAddRows()
     {
-        $writer = new WriterSpy($this->filename);
+        $writer = new WriterSpy();
         $rows   = [
             ['Dan', 'McAdams'],
             ['Lara', 'McAdams'],
@@ -89,7 +83,7 @@ class WriterTest extends TestCase
     {
         $header = ['first_name', 'last_name'];
 
-        $writer = new WriterSpy($this->filename);
+        $writer = new WriterSpy();
         $writer->setHeader($header);
 
         $this->assertEquals($header, $writer->getHeader());
@@ -115,11 +109,11 @@ class WriterTest extends TestCase
             ['Lara', 'McAdams', 'lara@test.com'],
             ['Test', 'User', 'test@test.com']
         ];
-        $writer = new Csv\Writer($this->filename);
+        $writer = new Csv\Writer();
         $writer->addRows($rows);
         $writer->setHeader($header);
 
-        $writer->write();
+        $writer->write($this->filename);
         $this->assertCsvWrittenToFile($header, $rows);
     }
 
