@@ -29,9 +29,13 @@ class SplitCamelCaseWordsFormatter implements FormatterInterface
     public function __construct()
     {
         $callback = function ($var) {
-            $regEx  = '/(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/x';
-            $words  = preg_split($regEx, $var);
-            return implode(' ', $words);
+            $regex = '/(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/x';
+            $words = preg_split($regex, $var, $limit = -1, PREG_SPLIT_NO_EMPTY);
+
+            if (!empty($words)) {
+                return implode(' ', $words);
+            };
+            return $var;
         };
         $this->formatter = new Formatter($callback);
     }
