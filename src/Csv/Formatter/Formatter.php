@@ -44,35 +44,14 @@ class Formatter implements FormatterInterface
     {
         $formatted = [];
         foreach ($data as $element) {
-            // assert element to format is string
-            $this->assertString($element);
-            // assert resulting element is string
-            $this->assertResultString($formattedElement = call_user_func($this->callback, $element));
-
+            if (!is_string($element)) {
+                throw new \InvalidArgumentException('All elements of the array must be strings');
+            }
+            if (!is_string($formattedElement = call_user_func($this->callback, $element))) {
+                throw new FormatterResultException('Formatter must result in an array of strings');
+            }
             $formatted[] = $formattedElement;
         }
         return $formatted;
-    }
-
-    /**
-     * @param $value
-     * @throws \InvalidArgumentException
-     */
-    protected function assertString($value)
-    {
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('All elements of the array must be strings');
-        }
-    }
-
-    /**
-     * @param $result
-     * @throws FormatterResultException
-     */
-    protected function assertResultString($result)
-    {
-        if (!is_string($result)) {
-            throw new FormatterResultException('Formatter must result in an array of strings');
-        }
     }
 }
