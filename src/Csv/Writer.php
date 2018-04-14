@@ -72,6 +72,13 @@ class Writer extends Csv implements WriterInterface
 
         foreach ($this->rows as $row) {
             fputcsv($handle, $row, $this->delimiter, $this->enclosure, $this->escape);
+
+            // change line endings if CSV is a file and is necessary
+            if (is_file($filename) && Newline::NEWLINE_LF !== $this->newline) {
+                if(0 === fseek($handle, -1, SEEK_CUR)) {
+                    fwrite($handle, $this->newline);
+                }
+            }
         }
 
         $this->closeStream($handle);

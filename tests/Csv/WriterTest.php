@@ -115,6 +115,8 @@ class WriterTest extends TestCase
 
         $writer->write($this->filename);
         $this->assertCsvWrittenToFile($header, $rows);
+
+        return $writer;
     }
 
     private function assertCsvWrittenToFile($header, $rows)
@@ -130,5 +132,21 @@ class WriterTest extends TestCase
         }
 
         fclose($handle);
+    }
+
+    /**
+     * @depends testWriteCsvToFile
+     */
+    public function testWriteCsvDifferentLineEndings(Csv\Writer $writer)
+    {
+        $writer->setNewline(Csv\Newline::NEWLINE_CRLF);
+        $writer->write($this->filename);
+        $this->assertLineEnding(Csv\Newline::NEWLINE_CRLF);
+    }
+
+    private function assertLineEnding($lineEnding)
+    {
+        $line = fgets(fopen($this->filename, 'r'));
+        $this->assertEquals($lineEnding, substr($line, -2));
     }
 }
