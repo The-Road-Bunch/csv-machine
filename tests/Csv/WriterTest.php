@@ -106,4 +106,30 @@ class WriterTest extends TestCase
         $writer->setHeader($header);
         $this->assertEquals($header, $writer->getRows()[0]);
     }
+
+    public function testWriteCsvToFile()
+    {
+        $header = ['first_name', 'last_name', 'email_address'];
+        $rows   = [
+            ['Dan', 'McAdams', 'dan@test.com'],
+            ['Lara', 'McAdams', 'lara@test.com'],
+            ['Test', 'User', 'test@test.com']
+        ];
+        $writer = new Csv\Writer($this->filename);
+        $writer->addRows($rows);
+        $writer->setHeader($header);
+
+        $writer->write();
+        $this->assertGreaterThan(0, filesize($this->filename), 'No data written to file');
+
+        $handle        = fopen($this->filename, 'r');
+        $headerFromCSV = fgetcsv($handle);
+
+        $this->assertEquals($header, $headerFromCSV);
+        foreach ($rows as $row) {
+            $this->assertEquals($row, fgetcsv($handle));
+        }
+
+        fclose($handle);
+    }
 }

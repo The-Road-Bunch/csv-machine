@@ -80,12 +80,26 @@ class Writer extends Csv implements WriterInterface
     }
 
     /**
+     * Write the CSV to the stream
+     */
+    public function write()
+    {
+        $handle = $this->openStream();
+
+        foreach ($this->rows as $row) {
+            fputcsv($handle, $row, $this->delimiter, $this->enclosure, $this->escape);
+        }
+
+        $this->closeStream($handle);
+    }
+
+    /**
      * @return bool|resource
      * @throws \Exception
      */
     private function openStream()
     {
-        if ($handle = fopen($this->filename, 'a')) {
+        if ($handle = fopen($this->filename, 'w+')) {
             return $handle;
         }
         throw new \Exception(sprintf('Cannot open steam: %s', $this->filename));

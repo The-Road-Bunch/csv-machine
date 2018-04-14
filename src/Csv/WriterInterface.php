@@ -29,4 +29,9 @@ interface WriterInterface
      * @return WriterInterface
      */
     public function addRow(array $row): WriterInterface;
+
+    /**
+     * Write the CSV to the stream
+     */
+    public function write();
 }
