@@ -97,9 +97,9 @@ class WriterTest extends TestCase
 
     /**
      * @depends testAddRows
-     * @param Csv\WriterInterface|WriterSpy $writer
+     * @param WriterSpy $writer
      */
-    public function testSetHeaderPutsHeaderRowBeforeData(Csv\WriterInterface $writer)
+    public function testSetHeaderPutsHeaderRowBeforeData($writer)
     {
         $header = ['first_name', 'last_name'];
 
