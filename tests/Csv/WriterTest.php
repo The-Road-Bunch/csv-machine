@@ -43,16 +43,6 @@ class WriterTest extends TestCase
         $this->assertEquals($this->filename, $writer->getFilename());
     }
 
-    public function testInvalidFilenameThrowsException()
-    {
-        $this->expectException(\Exception::class);
-        $errReporting = error_reporting();
-        error_reporting(0);
-
-        new Csv\Writer(__DIR__ . '/NotAFile');
-        error_reporting($errReporting);
-    }
-
     public function testCreateFile()
     {
         new Csv\Writer($this->filename);
