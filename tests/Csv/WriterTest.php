@@ -120,6 +120,11 @@ class WriterTest extends TestCase
         $writer->setHeader($header);
 
         $writer->write();
+        $this->assertCsvWrittenToFile($header, $rows);
+    }
+
+    private function assertCsvWrittenToFile($header, $rows)
+    {
         $this->assertGreaterThan(0, filesize($this->filename), 'No data written to file');
 
         $handle        = fopen($this->filename, 'r');
