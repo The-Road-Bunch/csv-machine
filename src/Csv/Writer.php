@@ -85,11 +85,10 @@ class Writer extends Csv implements WriterInterface
      */
     private function openStream()
     {
-        $handle = fopen($this->filename, 'a');
-        if (false === $handle) {
-            throw new \Exception(sprintf('Cannot open steam: %s', $this->filename));
+        if ($handle = fopen($this->filename, 'a')) {
+            return $handle;
         }
-        return $handle;
+        throw new \Exception(sprintf('Cannot open steam: %s', $this->filename));
     }
 
     private function closeStream($handle)
