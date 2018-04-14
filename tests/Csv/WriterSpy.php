@@ -21,11 +21,6 @@ class WriterSpy extends Writer
         return $this->header;
     }
 
-    public function getFilename()
-    {
-        return $this->filename;
-    }
-
     public function getRows()
     {
         return $this->rows;
