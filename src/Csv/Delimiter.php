@@ -25,5 +25,6 @@ class Delimiter
     const DELIMITER_PIPE      = "|";
     const DELIMITER_SEMICOLON = ";";
     const DELIMITER_COLON     = ":";
+    const DELIMITER_SPACE     = " ";
     const DELIMITER_TAB       = "\t";
 }
