@@ -64,7 +64,6 @@ class Writer extends Csv implements WriterInterface
      * Write the CSV to the stream
      *
      * @param string $filename
-     * @throws \Exception
      */
     public function write(string $filename)
     {
@@ -84,7 +83,6 @@ class Writer extends Csv implements WriterInterface
     /**
      * @param string $filename
      * @return bool|resource
-     * @throws \Exception
      */
     private function openStream(string $filename)
     {
