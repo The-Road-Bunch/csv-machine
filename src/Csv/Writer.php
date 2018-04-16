@@ -12,6 +12,8 @@
 namespace RoadBunch\Csv;
 
 use RoadBunch\Csv\Exception\InvalidInputArrayException;
+use RoadBunch\Csv\Formatter\FormatterInterface;
+use RoadBunch\Csv\Header\Header;
 
 /**
  * Class Writer
@@ -35,10 +37,16 @@ class Writer extends Csv implements WriterInterface
 
     /**
      * @param array $header
+     * @param FormatterInterface[] $formatters
+     * @throws InvalidInputArrayException
      */
-    public function setHeader(array $header)
+    public function setHeader(array $header, array $formatters = [])
     {
-        $this->header = $header;
+        $header = new Header($header);
+        foreach ($formatters as $formatter) {
+            $header->addFormatter($formatter);
+        }
+        $this->header = $header->getFormattedColumns();
     }
 
     /**

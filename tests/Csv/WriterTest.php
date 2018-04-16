@@ -89,6 +89,24 @@ class WriterTest extends TestCase
         $this->assertEquals($header, $writer->getHeader());
     }
 
+    public function testSetHeaderWithFormatters()
+    {
+        $writer = new Csv\Writer();
+        $rows   = [['dan', 'mcadams']];
+        $writer->addRows($rows);
+
+        $header = ['first_name', 'last_name'];
+        $expectedFormattedHeader = ['First Name', 'Last Name'];
+        $formatters = [
+            new Csv\Formatter\UpperCaseWordsFormatter(),
+            new Csv\Formatter\UnderscoreToSpaceFormatter()
+        ];
+        $writer->setHeader($header, $formatters);
+
+        $writer->write($this->filename);
+        $this->assertCsvWrittenToFile($expectedFormattedHeader, $rows);
+    }
+
     public function testWriteCsvToFile()
     {
         $header = ['first_name', 'last_name', 'email_address'];
@@ -102,9 +120,18 @@ class WriterTest extends TestCase
         $writer->setHeader($header);
 
         $writer->write($this->filename);
-        $this->assertCsvWrittenToFile($header, $rows);
+
+        $handle = fopen($this->filename, 'r');
+        $this->assertHeaderWrittenToFile($header, $handle);
+        fclose($handle);
 
         return $writer;
+    }
+
+    private function assertHeaderWrittenToFile($header, $handle)
+    {
+        $headerFromCSV = fgetcsv($handle);
+        $this->assertEquals($header, $headerFromCSV);
     }
 
     private function assertCsvWrittenToFile($header, $rows)
@@ -112,9 +139,8 @@ class WriterTest extends TestCase
         $this->assertGreaterThan(0, filesize($this->filename), 'No data written to file');
 
         $handle        = fopen($this->filename, 'r');
-        $headerFromCSV = fgetcsv($handle);
+        $this->assertHeaderWrittenToFile($header, $handle);
 
-        $this->assertEquals($header, $headerFromCSV);
         foreach ($rows as $row) {
             $this->assertEquals($row, fgetcsv($handle));
         }
