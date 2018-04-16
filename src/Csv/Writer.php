@@ -30,6 +30,9 @@ class Writer extends Csv implements WriterInterface
     /** @var bool */
     protected $isStreamSeekable = false;
 
+    /** @var resource */
+    protected $handle;
+
     /**
      * @param array $header
      */
@@ -69,75 +72,72 @@ class Writer extends Csv implements WriterInterface
      */
     public function write(string $filename)
     {
-        $handle = $this->openStream($filename);
-        $this->writeRows($handle);
-        $this->closeStream($handle);
+        $this->openStream($filename);
+        $this->writeRows();
+        $this->closeStream();
     }
 
     /**
      * @param string $filename
-     * @return bool|resource
      */
     private function openStream(string $filename)
     {
-        $handle = fopen($filename, 'w+');
-        $this->setSeekableFlag($handle);
-        return $handle;
+        $this->handle = fopen($filename, 'w+');
+        $this->setSeekableFlag();
     }
 
     /**
-     * @param $handle
+     * Close the stream
      */
-    private function closeStream($handle)
+    private function closeStream()
     {
-        fclose($handle);
+        fclose($this->handle);
     }
 
     /**
-     * @param resource $handle
+     * If the requested newline is not PHP default \n update the newline character
      */
-    private function updateNewLine($handle)
+    private function updateNewLine()
     {
-        if ((Newline::NEWLINE_LF !== $this->newline) && (0 === fseek($handle, -1, SEEK_CUR))) {
-            fwrite($handle, $this->newline);
+        if ((Newline::NEWLINE_LF !== $this->newline) && (0 === fseek($this->handle, -1, SEEK_CUR))) {
+            fwrite($this->handle, $this->newline);
         }
     }
 
     /**
-     * @param $handle
+     * Write a row to the stream, if needed, update line endings
+     *
      * @param $row
      */
-    private function writeRow($handle, $row)
+    private function writeRow(array $row)
     {
-        fputcsv($handle, $row, $this->delimiter, $this->enclosure, $this->escape);
+        fputcsv($this->handle, $row, $this->delimiter, $this->enclosure, $this->escape);
 
         if ($this->isStreamSeekable) {
-            $this->updateNewLine($handle);
+            $this->updateNewLine();
         }
     }
 
     /**
-     * @param resource $handle
+     * Write CSV header and rows to stream
      */
-    private function writeRows($handle)
+    private function writeRows()
     {
         if ($this->header) {
-            $this->writeRow($handle, $this->header);
+            $this->writeRow($this->header);
         }
         foreach ($this->rows as $row) {
-            $this->writeRow($handle, $row);
+            $this->writeRow($row);
         }
     }
 
     /**
      * Checks resource, if it's seekable set the seekable flag
      * this will be used when determining if line endings should be updated
-     *
-     * @param resource $handle
      */
-    private function setSeekableFlag($handle)
+    private function setSeekableFlag()
     {
-        if (stream_get_meta_data($handle)['seekable']) {
+        if (stream_get_meta_data($this->handle)['seekable']) {
             $this->isStreamSeekable = true;
             return;
         }
