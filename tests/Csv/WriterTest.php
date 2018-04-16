@@ -128,6 +128,42 @@ class WriterTest extends TestCase
         return $writer;
     }
 
+    /**
+     * @depends testWriteCsvToFile
+     */
+    public function testWriteCsvToNonSeekableStream(Csv\WriterInterface $writer)
+    {
+        $header = ['first_name', 'last_name', 'email_address'];
+        $writer->setHeader($header);
+
+        ob_start();
+        $writer->write('php://output');
+        $output = ob_get_clean();
+
+        $this->assertContains(implode(',', $header), $output);
+    }
+
+    /**
+     * @depends testWriteCsvToFile
+     */
+    public function testWriteToString(Csv\WriterInterface $writer)
+    {
+        $header = ['first_name', 'last_name', 'email_address'];
+        $writer->setHeader($header);
+
+        $this->assertContains(implode(',', $header), $writer->writeToString());
+    }
+
+    /**
+     * @depends testWriteCsvToFile
+     */
+    public function testWriteCsvDifferentLineEndings(Csv\Writer $writer)
+    {
+        $writer->setNewline(Csv\Newline::NEWLINE_CRLF);
+        $writer->write($this->filename);
+        $this->assertLineEnding(Csv\Newline::NEWLINE_CRLF);
+    }
+
     private function assertHeaderWrittenToFile($header, $handle)
     {
         $headerFromCSV = fgetcsv($handle);
@@ -146,16 +182,6 @@ class WriterTest extends TestCase
         }
 
         fclose($handle);
-    }
-
-    /**
-     * @depends testWriteCsvToFile
-     */
-    public function testWriteCsvDifferentLineEndings(Csv\Writer $writer)
-    {
-        $writer->setNewline(Csv\Newline::NEWLINE_CRLF);
-        $writer->write($this->filename);
-        $this->assertLineEnding(Csv\Newline::NEWLINE_CRLF);
     }
 
     private function assertLineEnding($lineEnding)

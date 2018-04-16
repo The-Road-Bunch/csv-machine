@@ -41,4 +41,11 @@ interface WriterInterface
      * @param string $filename
      */
     public function write(string $filename);
+
+    /**
+     * Return the CSV as a string
+     *
+     * @return string
+     */
+    public function writeToString(): string;
 }

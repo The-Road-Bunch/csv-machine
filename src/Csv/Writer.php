@@ -86,6 +86,16 @@ class Writer extends Csv implements WriterInterface
     }
 
     /**
+     * @return string
+     */
+    public function writeToString(): string
+    {
+        ob_start();
+        $this->write('php://output');
+        return ob_get_clean();
+    }
+
+    /**
      * @param string $filename
      */
     private function openStream(string $filename)
@@ -149,7 +159,6 @@ class Writer extends Csv implements WriterInterface
             $this->isStreamSeekable = true;
             return;
         }
-        // @todo: add return for not seekable. I haven't written a test for it, so that's why it's not here
-        // @todo: but it is definitely a bug
+        $this->isStreamSeekable = false;
     }
 }
