@@ -22,7 +22,7 @@ use RoadBunch\Csv\Exception\InvalidInputArrayException;
 class Writer extends Csv implements WriterInterface
 {
     /** @var array */
-    protected $header;
+    protected $header = [];
 
     /** @var array */
     protected $rows = [];
@@ -30,7 +30,7 @@ class Writer extends Csv implements WriterInterface
     /** @var bool */
     protected $isStreamSeekable = false;
 
-    /** @var resource */
+    /** @var resource|bool */
     protected $handle;
 
     /**
@@ -123,7 +123,7 @@ class Writer extends Csv implements WriterInterface
      */
     private function writeRows()
     {
-        if ($this->header) {
+        if (!empty($this->header)) {
             $this->writeRow($this->header);
         }
         foreach ($this->rows as $row) {
