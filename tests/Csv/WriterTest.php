@@ -89,18 +89,6 @@ class WriterTest extends TestCase
         $this->assertEquals($header, $writer->getHeader());
     }
 
-    /**
-     * @depends testAddRows
-     * @param WriterSpy $writer
-     */
-    public function testSetHeaderPutsHeaderRowBeforeData($writer)
-    {
-        $header = ['first_name', 'last_name'];
-
-        $writer->setHeader($header);
-        $this->assertEquals($header, $writer->getRows()[0]);
-    }
-
     public function testWriteCsvToFile()
     {
         $header = ['first_name', 'last_name', 'email_address'];
