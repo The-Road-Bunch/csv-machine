@@ -14,6 +14,12 @@ namespace RoadBunch\Csv\Tests\Csv;
 
 use RoadBunch\Csv\Csv;
 
+/**
+ * Class CsvSpy
+ *
+ * @author  Dan McAdams
+ * @package RoadBunch\Csv\Tests\Csv
+ */
 class CsvSpy extends Csv
 {
     public function getDelimiter()

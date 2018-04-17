@@ -14,6 +14,12 @@ namespace RoadBunch\Csv\Tests\Csv;
 
 use RoadBunch\Csv\Writer;
 
+/**
+ * Class WriterSpy
+ *
+ * @author  Dan McAdams
+ * @package RoadBunch\Csv\Tests\Csv
+ */
 class WriterSpy extends Writer
 {
     public function getHeader()

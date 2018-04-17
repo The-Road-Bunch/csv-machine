@@ -14,6 +14,12 @@ namespace RoadBunch\Csv\Tests\Header;
 
 use RoadBunch\Csv\Header\Header;
 
+/**
+ * Class HeaderSpy
+ *
+ * @author  Dan McAdams
+ * @package RoadBunch\Csv\Tests\Header
+ */
 class HeaderSpy extends Header
 {
     public function getFormatters()
