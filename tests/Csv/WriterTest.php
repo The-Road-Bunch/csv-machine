@@ -73,8 +73,13 @@ class WriterTest extends TestCase
             ['Test', 'User']
         ];
         $writer->addRows($rows);
-
-        $this->assertCount(count($rows), $writer->getRows());
+        $moreRows = [
+            ['more1', 'row1'],
+            ['more2', 'row2'],
+            ['more3', 'row3']
+        ];
+        $writer->addRows($moreRows);
+        $this->assertCount(6, $writer->getRows());
 
         return $writer;
     }
