@@ -78,7 +78,7 @@ class Writer extends Csv implements WriterInterface
      *
      * @param string $filename
      */
-    public function write(string $filename)
+    public function saveToFile(string $filename)
     {
         $this->openStream($filename);
         $this->writeRows();
@@ -91,7 +91,7 @@ class Writer extends Csv implements WriterInterface
     public function writeToString(): string
     {
         ob_start();
-        $this->write('php://output');
+        $this->saveToFile('php://output');
         return ob_get_clean();
     }
 

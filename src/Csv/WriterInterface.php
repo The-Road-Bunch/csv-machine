@@ -38,9 +38,13 @@ interface WriterInterface
 
     /**
      * Write the CSV to the stream
+     * This can be a file, or any other type of streamable resource
+     *
+     * 'example.csv', 'php://output'
+     *
      * @param string $filename
      */
-    public function write(string $filename);
+    public function saveToFile(string $filename);
 
     /**
      * Return the CSV as a string

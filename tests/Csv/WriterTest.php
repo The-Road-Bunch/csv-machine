@@ -108,7 +108,7 @@ class WriterTest extends TestCase
         ];
         $writer->setHeader($header, $formatters);
 
-        $writer->write($this->filename);
+        $writer->saveToFile($this->filename);
         $this->assertCsvWrittenToFile($expectedFormattedHeader, $rows);
     }
 
@@ -124,7 +124,7 @@ class WriterTest extends TestCase
         $writer->addRows($rows);
         $writer->setHeader($header);
 
-        $writer->write($this->filename);
+        $writer->saveToFile($this->filename);
 
         $handle = fopen($this->filename, 'r');
         $this->assertHeaderWrittenToFile($header, $handle);
@@ -142,7 +142,7 @@ class WriterTest extends TestCase
         $writer->setHeader($header);
 
         ob_start();
-        $writer->write('php://output');
+        $writer->saveToFile('php://output');
         $output = ob_get_clean();
 
         $this->assertContains(implode(',', $header), $output);
@@ -165,7 +165,7 @@ class WriterTest extends TestCase
     public function testWriteCsvDifferentLineEndings(Csv\Writer $writer)
     {
         $writer->setNewline(Csv\Newline::NEWLINE_CRLF);
-        $writer->write($this->filename);
+        $writer->saveToFile($this->filename);
         $this->assertLineEnding(Csv\Newline::NEWLINE_CRLF);
     }
 
