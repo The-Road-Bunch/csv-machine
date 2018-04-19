@@ -58,7 +58,7 @@ class Header implements HeaderInterface
     }
 
     /**
-     * @param string|FormatterInterface $formatter
+     * @param mixed $formatter
      * @return HeaderInterface
      * @throws FormatterException
      */
@@ -69,11 +69,7 @@ class Header implements HeaderInterface
             return $this;
         }
         if (is_string($formatter)) {
-            if (class_exists($formatter) && in_array(FormatterInterface::class, class_implements($formatter))) {
-                $this->formatters[] = $formatter;
-                return $this;
-            }
-            throw new FormatterException(sprintf('%s is not a class or does not implement FormatterInterface', (string) $formatter));
+            return $this->addFormatterFromString($formatter);
         }
         throw new FormatterException('Invalid formatter provided, must implement FormatterInterface');
     }
@@ -89,5 +85,20 @@ class Header implements HeaderInterface
             $columns = $formatter::format($columns);
         }
         return $columns;
+    }
+
+    /**
+     * @param $formatter
+     * @return $this
+     * @throws FormatterException
+     */
+    private function addFormatterFromString($formatter): Header
+    {
+        if (class_exists($formatter) && in_array(FormatterInterface::class, class_implements($formatter))) {
+            $this->formatters[] = $formatter;
+            return $this;
+        }
+        throw new FormatterException(sprintf('%s is not a class or does not implement FormatterInterface',
+            (string)$formatter));
     }
 }

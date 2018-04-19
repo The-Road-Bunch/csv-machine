@@ -38,7 +38,7 @@ interface HeaderInterface
     public function getFormattedColumns(): array;
 
     /**
-     * @param string|FormatterInterface $formatter
+     * @param mixed $formatter
      * @return HeaderInterface
      */
     public function addFormatter($formatter): HeaderInterface;
