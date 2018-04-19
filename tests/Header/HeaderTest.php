@@ -13,6 +13,7 @@ namespace RoadBunch\Csv\Tests\Header;
 
 
 use PHPUnit\Framework\TestCase;
+use RoadBunch\Csv\Exception\FormatterException;
 use RoadBunch\Csv\Exception\InvalidInputArrayException;
 use RoadBunch\Csv\Formatter\Formatter;
 use RoadBunch\Csv\Formatter\SplitCamelCaseWordsFormatter;
@@ -76,24 +77,38 @@ class HeaderTest extends TestCase
         $this->assertCount(count($testHeaderArray) + 1, $header->getFormattedColumns());
     }
 
-    public function testAddFormatterReturnsHeader()
-    {
-        $header = new Header([]);
-        $this->assertInstanceOf(HeaderInterface::class, $header->addFormatter(new Formatter(function () {})));
-    }
-
     public function testAddFormatters()
     {
         $header = new HeaderSpy(['first_name', 'last_name', 'camelCased']);
-        $header->addFormatter(new UnderscoreToSpaceFormatter());
+        $header->addFormatter(UnderscoreToSpaceFormatter::class);
         $this->assertCount(1, $header->getFormatters());
-        $header->addFormatter(new UpperCaseWordsFormatter());
+        $header->addFormatter(UpperCaseWordsFormatter::class);
         $this->assertCount(2, $header->getFormatters());
-        $header->addFormatter(new SplitCamelCaseWordsFormatter());
+        $header->addFormatter(SplitCamelCaseWordsFormatter::class);
         $this->assertCount(3, $header->getFormatters());
 
         $formattedHeader = $header->getFormattedColumns();
         $this->assertEquals(['First Name', 'Last Name', 'Camel Cased'], $formattedHeader);
+    }
+
+    public function testAddInvalidFormatterString()
+    {
+        $this->expectException(FormatterException::class);
+
+        $testHeaderArray = $this->getTestHeaderArray();
+        $header = new Header($testHeaderArray);
+
+        $header->addFormatter('fakeformatter');
+    }
+
+    public function testAddInvalidFormatterObject()
+    {
+        $this->expectException(FormatterException::class);
+
+        $testHeaderArray = $this->getTestHeaderArray();
+        $header = new Header($testHeaderArray);
+
+        $header->addFormatter(new Header([]));
     }
 
     /**

@@ -38,8 +38,8 @@ interface HeaderInterface
     public function getFormattedColumns(): array;
 
     /**
-     * @param FormatterInterface $formatter
+     * @param string|FormatterInterface $formatter
      * @return HeaderInterface
      */
-    public function addFormatter(FormatterInterface $formatter): HeaderInterface;
+    public function addFormatter($formatter): HeaderInterface;
 }
