@@ -34,9 +34,6 @@ class UnderscoreToSpaceFormatterTest extends TestCase
         $testLowerCaseHeader = ['first___name', 'last_name', 'email address'];
         $testUpperCaseHeader = ['first   name', 'last name', 'email address'];
 
-        $formatter       = new UnderscoreToSpaceFormatter();
-        $formattedHeader = $formatter->format($testLowerCaseHeader);
-
-        $this->assertEquals($testUpperCaseHeader, $formattedHeader);
+        $this->assertEquals($testUpperCaseHeader, UnderscoreToSpaceFormatter::format($testLowerCaseHeader));
     }
 }

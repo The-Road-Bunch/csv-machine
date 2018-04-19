@@ -34,9 +34,6 @@ class UpperCaseWordsFormatterTest extends TestCase
         $testLowerCaseHeader = ['first name', 'last_name', 'email-address', 'user.id'];
         $testUpperCaseHeader = ['First Name', 'Last_Name', 'Email-Address', 'User.Id'];
 
-        $formatter   = new UpperCaseWordsFormatter();
-        $formattedHeader = $formatter->format($testLowerCaseHeader);
-
-        $this->assertEquals($testUpperCaseHeader, $formattedHeader);
+        $this->assertEquals($testUpperCaseHeader, UpperCaseWordsFormatter::format($testLowerCaseHeader));
     }
 }

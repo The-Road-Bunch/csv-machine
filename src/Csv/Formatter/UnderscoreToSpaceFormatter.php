@@ -18,28 +18,18 @@ namespace RoadBunch\Csv\Formatter;
  * @author  Dan McAdams
  * @package RoadBunch\Csv\Formatter
  */
-class UnderscoreToSpaceFormatter implements FormatterInterface
+class UnderscoreToSpaceFormatter extends Formatter
 {
-    /** @var FormatterInterface */
-    protected $formatter;
-
-    /**
-     * UnderscoreToSpaceFormatter constructor.
-     */
-    public function __construct()
-    {
-        $this->formatter = new Formatter(function ($var) {
-            return str_replace('_', ' ', $var);
-        });
-    }
-
     /**
      * @param array $data
      *
      * @return array
+     * @throws \RoadBunch\Csv\Exception\FormatterResultException
      */
-    public function format(array $data): array
+    public static function format(array $data): array
     {
-        return $this->formatter->format($data);
+        return self::applyFilter(function ($var) {
+            return str_replace('_', ' ', $var);
+        }, $data);
     }
 }

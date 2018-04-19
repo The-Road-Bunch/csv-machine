@@ -16,6 +16,8 @@ use function foo\func;
 use PHPUnit\Framework\TestCase;
 use RoadBunch\Csv\Exception\FormatterResultException;
 use RoadBunch\Csv\Formatter\Formatter;
+use RoadBunch\Csv\Formatter\FormatterInterface;
+use RoadBunch\Csv\Formatter\UnderscoreToSpaceFormatter;
 
 /**
  * Class FormatterTest
@@ -29,36 +31,71 @@ class FormatterTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $formatter = new Formatter(function ($var) {
-            return strtoupper($var);
-        });
+        $formatter = $this->getMockFormatter();
 
         $multiArray = [
             ['an array'],
             new \stdClass(),
             $this
         ];
-        $formatter->format($multiArray);
+        $formatter::format($multiArray);
     }
 
     public function testFormatArrayStrings()
     {
-        $formatter = new Formatter(function ($var) {
-            return strtoupper($var);
-        });
+        $formatter = $this->getMockFormatter();
 
         $testArray = ['one', 'two', 'three'];
-        $this->assertEquals(['ONE', 'TWO', 'THREE'], $formatter->format($testArray));
+        $this->assertEquals(['ONE', 'TWO', 'THREE'], $formatter::format($testArray));
     }
 
     public function testFormatterReturnsNonArray()
     {
         $this->expectException(FormatterResultException::class);
-        $formatter = new Formatter(function ($var) {
-            return explode('_', $var);
-        });
+
+        $formatter = new class extends Formatter
+        {
+            /**
+             * @param array $data
+             *
+             * @return array
+             * @throws FormatterResultException
+             */
+            public static function format(array $data): array
+            {
+                $callback = function ($var) {
+                    return explode('_', $var);
+                };
+
+                return parent::applyFilter($callback, $data);
+            }
+        };
 
         $testArray = ['first_name'];
-        $formatter->format($testArray);
+        $formatter::format($testArray);
+    }
+
+    /**
+     * @return FormatterInterface
+     */
+    private function getMockFormatter()
+    {
+        $formatter = new class extends Formatter
+        {
+            /**
+             * @param array $data
+             *
+             * @return array
+             * @throws FormatterResultException
+             */
+            public static function format(array $data): array
+            {
+                $callback = function ($var) {
+                    return strtoupper($var);
+                };
+                return parent::applyFilter($callback, $data);
+            }
+        };
+        return $formatter;
     }
 }
