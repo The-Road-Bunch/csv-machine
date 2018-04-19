@@ -49,8 +49,8 @@ class WriterTest extends TestCase
         $rowOne = ['Dan', 'McAdams'];
         $rowTwo = ['Lara', 'McAdams'];
 
-        $writer->addRow($rowOne)
-               ->addRow($rowTwo);
+        $writer->addRow($rowOne);
+        $writer->addRow($rowTwo);
 
         $this->assertCount(2, $writer->getRows());
     }
@@ -121,13 +121,13 @@ class WriterTest extends TestCase
             ['Test', 'User', 'test@test.com']
         ];
         $writer = new Csv\Writer();
-        $writer->addRows($rows);
         $writer->setHeader($header);
-
+        $writer->addRow();
+        $writer->addRows($rows);
         $writer->saveToFile($this->filename);
 
         $handle = fopen($this->filename, 'r');
-        $this->assertHeaderWrittenToFile($header, $handle);
+        $this->assertEquals($header, fgetcsv($handle));
         fclose($handle);
 
         return $writer;
@@ -169,18 +169,12 @@ class WriterTest extends TestCase
         $this->assertLineEnding(Csv\Newline::NEWLINE_CRLF);
     }
 
-    private function assertHeaderWrittenToFile($header, $handle)
-    {
-        $headerFromCSV = fgetcsv($handle);
-        $this->assertEquals($header, $headerFromCSV);
-    }
-
     private function assertCsvWrittenToFile($header, $rows)
     {
         $this->assertGreaterThan(0, filesize($this->filename), 'No data written to file');
 
-        $handle        = fopen($this->filename, 'r');
-        $this->assertHeaderWrittenToFile($header, $handle);
+        $handle = fopen($this->filename, 'r');
+        $this->assertEquals($header, fgetcsv($handle));
 
         foreach ($rows as $row) {
             $this->assertEquals($row, fgetcsv($handle));
