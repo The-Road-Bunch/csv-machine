@@ -11,34 +11,42 @@
 
 namespace RoadBunch\Csv;
 
+use RoadBunch\Csv\Formatter\FormatterInterface;
+
 /**
  * Interface CsvWriterInterface
  *
  * @author  Dan McAdams
  * @package RoadBunch\Csv
  */
-interface WriterInterface
+interface WriterInterface extends CsvInterface
 {
     /**
      * @param array $header
+     * @param FormatterInterface[] $formatters
+     * @return void
      */
-    public function setHeader(array $header);
+    public function setHeader(array $header, array $formatters = []);
 
     /**
      * @param array $row
-     * @return WriterInterface
+     * @return void
      */
-    public function addRow(array $row): WriterInterface;
+    public function addRow(array $row = []);
 
     /**
      * @param array $rows
-     * @return mixed
+     * @return void
      */
     public function addRows(array $rows);
 
     /**
      * Write the CSV to the stream
      * This can be a file, or any other type of streamable resource
+     *
+     * Currently the writer will close the handle, so if you pass in php://memory or php://temp, you will lose
+     * your information. For now, write to string and file_put_contents. Soon you will be able to open a stream and
+     * return the handle
      *
      * 'example.csv', 'php://output'
      *
