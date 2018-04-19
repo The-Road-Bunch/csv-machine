@@ -53,23 +53,7 @@ class FormatterTest extends TestCase
     {
         $this->expectException(FormatterResultException::class);
 
-        $formatter = new class extends Formatter
-        {
-            /**
-             * @param array $data
-             *
-             * @return array
-             * @throws FormatterResultException
-             */
-            public static function format(array $data): array
-            {
-                $callback = function ($var) {
-                    return explode('_', $var);
-                };
-
-                return parent::applyFilter($callback, $data);
-            }
-        };
+        $formatter = $this->getFormatterCallbackDoesNotReturnString();
 
         $testArray = ['first_name'];
         $formatter::format($testArray);
@@ -82,18 +66,28 @@ class FormatterTest extends TestCase
     {
         $formatter = new class extends Formatter
         {
-            /**
-             * @param array $data
-             *
-             * @return array
-             * @throws FormatterResultException
-             */
             public static function format(array $data): array
             {
-                $callback = function ($var) {
+                return self::applyFilter(function ($var) {
                     return strtoupper($var);
-                };
-                return parent::applyFilter($callback, $data);
+                }, $data);
+            }
+        };
+        return $formatter;
+    }
+
+    /**
+     * @return Formatter
+     */
+    private function getFormatterCallbackDoesNotReturnString()
+    {
+        $formatter = new class extends Formatter
+        {
+            public static function format(array $data): array
+            {
+                return self::applyFilter(function ($var) {
+                    return explode('_', $var);
+                }, $data);
             }
         };
         return $formatter;
