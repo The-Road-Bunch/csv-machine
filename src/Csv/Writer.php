@@ -36,9 +36,10 @@ class Writer extends Csv implements WriterInterface
     protected $handle;
 
     /**
-     * @param array $header
+     * @param array                $header
      * @param FormatterInterface[] $formatters
      * @throws InvalidInputArrayException
+     * @return void
      */
     public function setHeader(array $header, array $formatters = [])
     {
@@ -50,18 +51,20 @@ class Writer extends Csv implements WriterInterface
     }
 
     /**
+     * No row array passed will create an empty row
+     *
      * @param  array $row
-     * @return WriterInterface
+     * @return void
      */
-    public function addRow(array $row): WriterInterface
+    public function addRow(array $row = [])
     {
         $this->rows[] = $row;
-        return $this;
     }
 
     /**
      * @param array $rows
      * @throws InvalidInputArrayException
+     * @return void
      */
     public function addRows(array $rows)
     {
@@ -71,6 +74,16 @@ class Writer extends Csv implements WriterInterface
             }
             $this->rows[] = $row;
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function writeToString(): string
+    {
+        ob_start();
+        $this->saveToFile('php://output');
+        return ob_get_clean();
     }
 
     /**
@@ -86,16 +99,6 @@ class Writer extends Csv implements WriterInterface
     }
 
     /**
-     * @return string
-     */
-    public function writeToString(): string
-    {
-        ob_start();
-        $this->saveToFile('php://output');
-        return ob_get_clean();
-    }
-
-    /**
      * @param string $filename
      */
     private function openStream(string $filename)
@@ -105,20 +108,15 @@ class Writer extends Csv implements WriterInterface
     }
 
     /**
-     * Close the stream
+     * Write CSV header and rows to stream
      */
-    private function closeStream()
+    private function writeRows()
     {
-        fclose($this->handle);
-    }
-
-    /**
-     * If the requested newline is not PHP default \n update the newline character
-     */
-    private function updateNewLine()
-    {
-        if ((Newline::NEWLINE_LF !== $this->newline) && (0 === fseek($this->handle, -1, SEEK_CUR))) {
-            fwrite($this->handle, $this->newline);
+        if (!empty($this->header)) {
+            $this->writeRow($this->header);
+        }
+        foreach ($this->rows as $row) {
+            $this->writeRow($row);
         }
     }
 
@@ -137,21 +135,26 @@ class Writer extends Csv implements WriterInterface
     }
 
     /**
-     * Write CSV header and rows to stream
+     * If the requested newline is not PHP default \n update the newline character
      */
-    private function writeRows()
+    private function updateNewLine()
     {
-        if (!empty($this->header)) {
-            $this->writeRow($this->header);
-        }
-        foreach ($this->rows as $row) {
-            $this->writeRow($row);
+        if ((Newline::NEWLINE_LF !== $this->newline) && (0 === fseek($this->handle, -1, SEEK_CUR))) {
+            fwrite($this->handle, $this->newline);
         }
     }
 
     /**
+     * Close the stream
+     */
+    private function closeStream()
+    {
+        fclose($this->handle);
+    }
+
+    /**
      * Checks resource, if it's seekable set the seekable flag
-     * this will be used when determining if line endings should be updated
+     * this will be used when determining if line endings should be/can be updated
      */
     private function setSeekableFlag()
     {
