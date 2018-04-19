@@ -25,5 +25,5 @@ interface FormatterInterface
      *
      * @return array
      */
-    public function format(array $data): array;
+    public static function format(array $data): array;
 }
