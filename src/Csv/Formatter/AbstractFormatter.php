@@ -10,6 +10,7 @@
  */
 
 namespace RoadBunch\Csv\Formatter;
+
 use RoadBunch\Csv\Exception\FormatterResultException;
 
 
