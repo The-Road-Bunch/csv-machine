@@ -33,7 +33,6 @@ class SplitCamelCaseWordsFormatterTest extends TestCase
 
     public function testSplitCamelCaseWithAcronym()
     {
-        dump(SplitCamelCaseWordsFormatter::format(['theCSVMachine', 'SomeNASAStuff', 'DoesT.H.I.S.Work...']));
         $this->assertEquals(
             ['the CSV Machine', 'Some NASA Stuff', 'Does T.H.I.S. Work...'],
             SplitCamelCaseWordsFormatter::format(['theCSVMachine', 'SomeNASAStuff', 'DoesT.H.I.S.Work...'])
