@@ -8,7 +8,8 @@ _A separation values manipulation library_
 
 ### Contents
 1. [Installation](#installation)
-2. [Basic Usage](#basic_usage)
+2. [Basic Usage](#basic_usage)  
+    a. [Creating a CSV](#create)
 3. [Headers](doc/header.md)
 4. [Formatters](doc/formatter.md)
 
@@ -18,6 +19,7 @@ _A separation values manipulation library_
 
 ### <a name="basic_usage">Basic Usage</a>
 
+#### <a name="create">Creating a CSV</a>
 ```php
 <?php
 
@@ -31,6 +33,9 @@ $csv->setHeader([ 'Column A', 'Column B' ]);
 $csv->addRow([ 'data_one_a', 'data_one_b' ]);
 $csv->addRow([ 'data_two_a', 'data_two_b' ]);
 
-// write the CSV to a file
+// save the CSV to a file
 $csv->saveToFile('/path/to/filename.csv');
+
+// write the csv to a string
+echo $csv->writeToString();
 ```
