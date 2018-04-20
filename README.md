@@ -19,6 +19,8 @@ _A separation values manipulation library_
 ### <a name="basic_usage">Basic Usage</a>
 
 ```php
+<?php
+
 // create a new Writer object
 $csv = new \RoadBunch\Csv\Writer();
 

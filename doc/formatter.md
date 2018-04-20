@@ -4,22 +4,38 @@
  Formatter | Ex: original | Ex: formatted 
 :-----------|:----------|:-------
 SplitCamelCaseWordsFormatter::class | splitCamelCase | split Camel Case 
-SplitCamelCaseWordsFormatter::class | TheCSVMachine | The CSV Machine
 UnderscoreToSpaceFormatter::class | words_with_underscores | words with underscores 
 UpperCaseFormatter::class | upper case formatter | UPPER CASE FORMATTER 
 UpperCaseWordsFormatter::class | upper case_words formatter | Upper Case_Words Formatter 
 
+_Note:_ `SplitCamelCaseWordsFormatter` can split camel case strings with acronyms and abbreviations
+
+ Formatter | Ex: original | Ex: formatted 
+:-----------|:----------|:-------
+SplitCamelCaseWordsFormatter::class | TheCSVMachine | The CSV Machine
+SplitCamelCaseWordsFormatter::class | evenT.H.I.S.Works | even T.H.I.S. Works
+
 ### Usage
 ```php
-$writer = new Writer();
-$writer->addHeader(
+<?php
+
+use \RoadBunch\Csv as Csv;
+use \RoadBunch\Csv\Formatter as Formatter;
+
+$writer = new Csv\Writer();
+$writer->setHeader(
     [ 'first_column', 'second_column' ], 
-    [ UpperCaseWordsFormatter::class, UnderscoreToSpaceFormatter::class ]
+    [
+        Formatter\UpperCaseWordsFormatter::class, 
+        Formatter\UnderscoreToSpaceFormatter::class
+    ]
 );
 
-echo $write->writeToString();
+echo $writer->writeToString();
 
-// output
+```
+outputs
+```
 "First Column","Second Column"
 ```
 
@@ -29,6 +45,8 @@ echo $write->writeToString();
 
 **Example**
 ```php
+<?php
+
 class LowerCaseFormatter extends \RoadBunch\Csv\Formatter\Formatter 
 {
     /**
