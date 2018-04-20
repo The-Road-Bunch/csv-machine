@@ -115,7 +115,6 @@ class WriterTest extends TestCase
     public function testThrowExceptionWhenCantOpenFile()
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('fopen');
 
         $writer = new Csv\Writer();
         error_reporting(0);
