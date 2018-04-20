@@ -1,7 +1,7 @@
-## Formatter
+# Formatter
 
-#### Available Formatters
- FormatterInterface | Ex: original | Ex: formatted 
+### Available Formatters
+ Formatter | Ex: original | Ex: formatted 
 :-----------|:----------|:-------
 SplitCamelCaseWordsFormatter::class | splitCamelCase | split Camel Case 
 SplitCamelCaseWordsFormatter::class | TheCSVMachine | The CSV Machine
@@ -9,11 +9,25 @@ UnderscoreToSpaceFormatter::class | words_with_underscores | words with undersco
 UpperCaseFormatter::class | upper case formatter | UPPER CASE FORMATTER 
 UpperCaseWordsFormatter::class | upper case_words formatter | Upper Case_Words Formatter 
 
-#### Create your own formatter:  
-extend `Csv\Formatter\Formatter`  
-call `self::filterArray(callable $filter, array $data)`
+### Usage
+```php
+$writer = new Writer();
+$writer->addHeader(
+    [ 'first_column', 'second_column' ], 
+    [ UpperCaseWordsFormatter::class, UnderscoreToSpaceFormatter::class ]
+);
 
-example:
+echo $write->writeToString();
+
+// output
+"First Column","Second Column"
+```
+
+### Create your own formatter  
+**extend** `Csv\Formatter\Formatter`  
+**call** `self::filterArray(callable $filter, array $data)`
+
+**Example**
 ```php
 class LowerCaseFormatter extends \RoadBunch\Csv\Formatter\Formatter 
 {
