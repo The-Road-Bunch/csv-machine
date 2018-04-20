@@ -11,11 +11,11 @@ _A separation values manipulation library_
 3. [Headers](header.md)
 4. [Formatters](formatter.md)
 
-#### <a name="installation">Installation</a>
+### <a name="installation">Installation</a>
 
 `composer require theroadbunch/csv-machine`
 
-#### <a name="basic_usage">Basic Usage</a>
+### <a name="basic_usage">Basic Usage</a>
 
 ```php
 // create a new Writer object
