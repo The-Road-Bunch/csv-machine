@@ -79,6 +79,7 @@ class Writer extends Csv implements WriterInterface
 
     /**
      * @return string
+     * @throws \Exception
      */
     public function writeToString(): string
     {
