@@ -91,25 +91,25 @@ class WriterTest extends TestCase
         $writer = new WriterSpy();
         $writer->setHeader($header);
 
-        $this->assertEquals($header, $writer->getHeader());
+        $this->assertInstanceOf(Csv\Header\HeaderInterface::class, $writer->getHeader());
     }
 
     public function testSetHeaderWithFormatters()
     {
         $writer = new Csv\Writer();
-        $rows   = [['dan', 'mcadams']];
-        $writer->addRows($rows);
+        $rows   = ['fname_one', 'lname_one', 'one@test.com'];
+        $writer->addRow($rows);
 
-        $header = ['first_name', 'last_name'];
-        $expectedFormattedHeader = ['First Name', 'Last Name'];
+        $header = ['first_name', 'last_name', 'email_address'];
+        $expectedFormattedHeader = ['First Name', 'Last Name', 'Email Address'];
         $formatters = [
-            new Csv\Formatter\UpperCaseWordsFormatter(),
-            new Csv\Formatter\UnderscoreToSpaceFormatter()
+            Csv\Formatter\UnderscoreToSpaceFormatter::class,
+            Csv\Formatter\UpperCaseWordsFormatter::class
         ];
         $writer->setHeader($header, $formatters);
 
         $writer->saveToFile($this->filename);
-        $this->assertCsvWrittenToFile($expectedFormattedHeader, $rows);
+        $this->assertCsvWrittenToFile($expectedFormattedHeader, [$rows]);
     }
 
     public function testThrowExceptionWhenCantOpenFile()
@@ -126,9 +126,9 @@ class WriterTest extends TestCase
     {
         $header = ['first_name', 'last_name', 'email_address'];
         $rows   = [
-            ['Dan', 'McAdams', 'dan@test.com'],
-            ['Lara', 'McAdams', 'lara@test.com'],
-            ['Test', 'User', 'test@test.com']
+            ['fname_one', 'lname_one', 'one@test.com'],
+            ['fname_two', 'lname_two', 'two@test.com'],
+            ['fname_three', 'lname_three', 'three@test.com']
         ];
         $writer = new Csv\Writer();
         $writer->setHeader($header);
