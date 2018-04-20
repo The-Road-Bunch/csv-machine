@@ -25,7 +25,7 @@ _A separation values manipulation library_
 $csv = new \RoadBunch\Csv\Writer();
 
 // set the header
-$csv->setHeader([ 'Column One', 'Column Two' ]);
+$csv->setHeader([ 'Column A', 'Column B' ]);
 
 // add some rows
 $csv->addRow([ 'data_one_a', 'data_one_b' ]);
