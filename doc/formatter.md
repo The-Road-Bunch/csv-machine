@@ -1,4 +1,6 @@
-# Formatter
+# Formatters
+If you find yourself wanting to clean up those nasty looking header names you pull from the database or you use for array indexes, worry not! 
+Using a variety of provided formatters, you can format an array quickly and easily.
 
 ### Available Formatters
  Formatter | Ex: original | Ex: formatted 
@@ -40,6 +42,7 @@ outputs
 ```
 
 ### Create your own formatter  
+
 **extend** `Csv\Formatter\Formatter`  
 **call** `self::filterArray(callable $filter, array $data)`
 
@@ -61,3 +64,5 @@ class LowerCaseFormatter extends \RoadBunch\Csv\Formatter\Formatter
     }
 };
 ```
+
+For more information, take a look at the [FormatterInterface](../src/Csv/Formatter/FormatterInterface.php) and the [AbstractFormatter](../src/Csv/Formatter/AbstractFormatter.php)
