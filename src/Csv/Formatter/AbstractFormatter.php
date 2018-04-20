@@ -19,7 +19,7 @@ use RoadBunch\Csv\Exception\FormatterResultException;
  * @author  Dan McAdams
  * @package RoadBunch\Csv\Formatter
  */
-abstract class Formatter implements FormatterInterface
+abstract class AbstractFormatter implements FormatterInterface
 {
     protected static function applyFilter(callable $filter, array $data): array
     {

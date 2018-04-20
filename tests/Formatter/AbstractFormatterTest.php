@@ -15,7 +15,7 @@ namespace RoadBunch\Csv\Tests\Formatter;
 use function foo\func;
 use PHPUnit\Framework\TestCase;
 use RoadBunch\Csv\Exception\FormatterResultException;
-use RoadBunch\Csv\Formatter\Formatter;
+use RoadBunch\Csv\Formatter\AbstractFormatter;
 use RoadBunch\Csv\Formatter\FormatterInterface;
 use RoadBunch\Csv\Formatter\UnderscoreToSpaceFormatter;
 
@@ -64,7 +64,7 @@ class FormatterTest extends TestCase
      */
     private function getMockFormatter()
     {
-        $formatter = new class extends Formatter
+        $formatter = new class extends AbstractFormatter
         {
             public static function format(array $data): array
             {
@@ -77,11 +77,11 @@ class FormatterTest extends TestCase
     }
 
     /**
-     * @return Formatter
+     * @return AbstractFormatter
      */
     private function getFormatterCallbackDoesNotReturnString()
     {
-        $formatter = new class extends Formatter
+        $formatter = new class extends AbstractFormatter
         {
             public static function format(array $data): array
             {

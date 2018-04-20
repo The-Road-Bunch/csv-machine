@@ -18,7 +18,7 @@ namespace RoadBunch\Csv\Formatter;
  * @author  Dan McAdams
  * @package RoadBunch\Csv\Formatter
  */
-class SplitCamelCaseWordsFormatter extends Formatter
+class SplitCamelCaseWordsFormatter extends AbstractFormatter
 {
     /**
      * @param array $data

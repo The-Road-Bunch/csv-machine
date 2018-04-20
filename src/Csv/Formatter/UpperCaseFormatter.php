@@ -18,7 +18,7 @@ namespace RoadBunch\Csv\Formatter;
  * @author  Dan McAdams
  * @package RoadBunch\Csv\Formatter
  */
-class UpperCaseFormatter extends Formatter
+class UpperCaseFormatter extends AbstractFormatter
 {
     /**
      * @param array $data

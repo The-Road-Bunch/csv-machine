@@ -13,7 +13,7 @@ namespace RoadBunch\Csv\Tests\Formatter;
 
 
 use PHPUnit\Framework\TestCase;
-use RoadBunch\Csv\Formatter\Formatter;
+use RoadBunch\Csv\Formatter\AbstractFormatter;
 use RoadBunch\Csv\Formatter\SplitCamelCaseWordsFormatter;
 
 /**
