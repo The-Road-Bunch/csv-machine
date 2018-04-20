@@ -35,9 +35,8 @@ $writer->setHeader(
 
 echo $writer->writeToString();
 
-```
-outputs
-```
+
+// output
 "First Column","Second Column"
 ```
 
