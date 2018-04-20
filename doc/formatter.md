@@ -50,7 +50,7 @@ outputs
 ```php
 <?php
 
-class LowerCaseFormatter extends \RoadBunch\Csv\Formatter\Formatter 
+class LowerCaseFormatter extends \RoadBunch\Csv\Formatter\AbstractFormatter 
 {
     /**
      * @param array $data
