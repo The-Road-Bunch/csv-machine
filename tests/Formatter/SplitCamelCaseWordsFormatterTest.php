@@ -26,9 +26,18 @@ class SplitCamelCaseWordsFormatterTest extends TestCase
 {
     public function testSplitCamelCase()
     {
-        $ccHeader = ['', 'stay_the_same', 'TestStringOne', 'TestStringTwo', 'TestABBRStrings', 'camelCase'];
-        $expected = ['', 'stay_the_same', 'Test String One', 'Test String Two', 'Test ABBR Strings', 'camel Case'];
+        $this->assertEquals(
+            ['', 'stay_the_same', 'Test String One', 'Test String Two'],
+            SplitCamelCaseWordsFormatter::format(['', 'stay_the_same', 'TestStringOne', 'TestStringTwo'])
+        );
+    }
 
-        $this->assertEquals($expected, SplitCamelCaseWordsFormatter::format($ccHeader));
+    public function testSplitCamelCaseWithAcronym()
+    {
+        dump(SplitCamelCaseWordsFormatter::format(['theCSVMachine', 'SomeNASAStuff', 'DoesT.H.I.S.Work...']));
+        $this->assertEquals(
+            ['the CSV Machine', 'Some NASA Stuff', 'Does T.H.I.S. Work...'],
+            SplitCamelCaseWordsFormatter::format(['theCSVMachine', 'SomeNASAStuff', 'DoesT.H.I.S.Work...'])
+        );
     }
 }

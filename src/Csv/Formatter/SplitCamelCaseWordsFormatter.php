@@ -29,7 +29,7 @@ class SplitCamelCaseWordsFormatter extends Formatter
     public static function format(array $data): array
     {
         return self::applyFilter(function ($var) {
-            $regex = '/(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/x';
+            $regex = '/(?<=[a-z])(?=[A-Z])|(?<=[A-Z\.])(?=[A-Z][a-z])/x';
             $words = preg_split($regex, $var, $limit = -1, PREG_SPLIT_NO_EMPTY);
 
             if (!empty($words)) {
