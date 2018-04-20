@@ -32,5 +32,5 @@ $csv->addRow([ 'data_one_a', 'data_one_b' ]);
 $csv->addRow([ 'data_two_a', 'data_two_b' ]);
 
 // write the CSV to a file
-$csv->saveToFile('sample_file.csv');
+$csv->saveToFile('/path/to/sample_file.csv');
 ```
