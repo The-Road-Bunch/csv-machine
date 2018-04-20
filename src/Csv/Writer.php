@@ -11,8 +11,8 @@
 
 namespace RoadBunch\Csv;
 
+use RoadBunch\Csv\Exception\FormatterException;
 use RoadBunch\Csv\Exception\InvalidInputArrayException;
-use RoadBunch\Csv\Formatter\FormatterInterface;
 use RoadBunch\Csv\Header\Header;
 
 /**
@@ -36,10 +36,11 @@ class Writer extends Csv implements WriterInterface
     protected $handle;
 
     /**
-     * @param array                $header
-     * @param FormatterInterface[] $formatters
-     * @throws InvalidInputArrayException
+     * @param array $header
+     * @param mixed $formatters
      * @return void
+     * @throws FormatterException
+     * @throws InvalidInputArrayException
      */
     public function setHeader(array $header, array $formatters = [])
     {
@@ -90,6 +91,7 @@ class Writer extends Csv implements WriterInterface
      * Write the CSV to the stream
      *
      * @param string $filename
+     * @throws \Exception
      */
     public function saveToFile(string $filename)
     {
@@ -100,10 +102,15 @@ class Writer extends Csv implements WriterInterface
 
     /**
      * @param string $filename
+     * @throws \Exception
      */
     private function openStream(string $filename)
     {
         $this->handle = fopen($filename, 'w+');
+
+        if (false === $this->handle) {
+            throw new \Exception(sprintf('Could not open file for writing. %s', error_get_last()['message']));
+        }
         $this->setSeekableFlag();
     }
 

@@ -112,6 +112,17 @@ class WriterTest extends TestCase
         $this->assertCsvWrittenToFile($expectedFormattedHeader, $rows);
     }
 
+    public function testThrowExceptionWhenCantOpenFile()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('fopen');
+
+        $writer = new Csv\Writer();
+        error_reporting(0);
+        $writer->saveToFile('');
+        error_reporting(1);
+    }
+
     public function testWriteCsvToFile()
     {
         $header = ['first_name', 'last_name', 'email_address'];
