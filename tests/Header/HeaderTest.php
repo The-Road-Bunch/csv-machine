@@ -11,7 +11,6 @@
 
 namespace RoadBunch\Csv\Tests\Header;
 
-
 use PHPUnit\Framework\TestCase;
 use RoadBunch\Csv\Exception\FormatterException;
 use RoadBunch\Csv\Exception\InvalidInputArrayException;

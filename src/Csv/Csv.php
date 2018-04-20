@@ -11,7 +11,6 @@
 
 namespace RoadBunch\Csv;
 
-
 /**
  * Class Csv
  *

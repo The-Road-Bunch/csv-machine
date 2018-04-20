@@ -10,7 +10,6 @@
 
 namespace RoadBunch\Csv;
 
-
 /**
  * Interface CsvInterface
  *

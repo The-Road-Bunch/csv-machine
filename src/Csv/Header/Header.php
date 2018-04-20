@@ -11,7 +11,6 @@
 
 namespace RoadBunch\Csv\Header;
 
-
 use RoadBunch\Csv\Exception\FormatterException;
 use RoadBunch\Csv\Exception\InvalidInputArrayException;
 use RoadBunch\Csv\Formatter\FormatterInterface;

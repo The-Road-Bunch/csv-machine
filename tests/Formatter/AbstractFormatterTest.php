@@ -11,7 +11,6 @@
 
 namespace RoadBunch\Csv\Tests\Formatter;
 
-
 use function foo\func;
 use PHPUnit\Framework\TestCase;
 use RoadBunch\Csv\Exception\FormatterResultException;

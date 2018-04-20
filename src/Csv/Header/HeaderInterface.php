@@ -11,9 +11,6 @@
 
 namespace RoadBunch\Csv\Header;
 
-use RoadBunch\Csv\Formatter\FormatterInterface;
-
-
 /**
  * Interface HeaderInterface
  *

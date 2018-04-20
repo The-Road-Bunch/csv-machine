@@ -11,7 +11,6 @@
 
 namespace RoadBunch\Csv\Tests\Formatter;
 
-
 use PHPUnit\Framework\TestCase;
 use RoadBunch\Csv\Formatter\UpperCaseWordsFormatter;
 
