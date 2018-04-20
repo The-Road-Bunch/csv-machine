@@ -15,12 +15,10 @@ namespace RoadBunch\Csv\Tests\Header;
 use PHPUnit\Framework\TestCase;
 use RoadBunch\Csv\Exception\FormatterException;
 use RoadBunch\Csv\Exception\InvalidInputArrayException;
-use RoadBunch\Csv\Formatter\Formatter;
 use RoadBunch\Csv\Formatter\SplitCamelCaseWordsFormatter;
 use RoadBunch\Csv\Formatter\UnderscoreToSpaceFormatter;
 use RoadBunch\Csv\Formatter\UpperCaseWordsFormatter;
 use RoadBunch\Csv\Header\Header;
-use RoadBunch\Csv\Header\HeaderInterface;
 
 /**
  * Class HeaderTest
