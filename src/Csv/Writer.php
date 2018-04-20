@@ -32,7 +32,7 @@ class Writer extends Csv implements WriterInterface
     /** @var bool */
     protected $isStreamSeekable = false;
 
-    /** @var resource|bool */
+    /** @var resource */
     protected $handle;
 
     /**
