@@ -10,8 +10,7 @@ _A separation values manipulation library_
 1. [Installation](#installation)
 2. [Basic Usage](#basic_usage)  
     a. [Creating a CSV](#create)
-3. [Headers](doc/header.md)
-4. [Formatters](doc/formatter.md)
+3. [Formatters](doc/formatter.md)
 
 ### <a name="installation">Installation</a>
 
