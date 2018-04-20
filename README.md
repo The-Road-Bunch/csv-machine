@@ -6,10 +6,11 @@ _A separation values manipulation library_
 ![Code Coverage](https://scrutinizer-ci.com/g/The-Road-Bunch/csv-machine/badges/coverage.png?b=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+### Contents
 1. [Installation](#installation)
 2. [Basic Usage](#basic_usage)
-3. [Headers](header.md)
-4. [Formatters](formatter.md)
+3. [Headers](doc/header.md)
+4. [Formatters](doc/formatter.md)
 
 ### <a name="installation">Installation</a>
 
