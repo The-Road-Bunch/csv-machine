@@ -7,10 +7,11 @@ _A separation values manipulation library_
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ### Contents
-1. [Installation](#installation)
-2. [Basic Usage](#basic_usage)  
+1. [Release Notes](doc/release.md)
+2. [Installation](#installation)
+3. [Basic Usage](#basic_usage)  
     a. [Creating a CSV](#create)
-3. [Formatters](doc/formatter.md)
+4. [Formatters](doc/formatter.md)
 
 ### <a name="installation">Installation</a>
 
