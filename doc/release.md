@@ -1,5 +1,5 @@
 ## The CSV Machine
-## 1.0.0-alpha
+## 1.0.0-alpha.1
 APR 21, 2018 - 17:35 CST
 ### Notes
 - pre-release version  
