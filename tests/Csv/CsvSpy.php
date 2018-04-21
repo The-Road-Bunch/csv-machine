@@ -11,7 +11,6 @@
 
 namespace RoadBunch\Csv\Tests\Csv;
 
-
 use RoadBunch\Csv\Csv;
 
 /**

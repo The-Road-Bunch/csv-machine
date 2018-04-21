@@ -11,9 +11,6 @@
 
 namespace RoadBunch\Csv\Header;
 
-use RoadBunch\Csv\Formatter\FormatterInterface;
-
-
 /**
  * Interface HeaderInterface
  *
@@ -38,8 +35,8 @@ interface HeaderInterface
     public function getFormattedColumns(): array;
 
     /**
-     * @param FormatterInterface $formatter
+     * @param mixed $formatter
      * @return HeaderInterface
      */
-    public function addFormatter(FormatterInterface $formatter): HeaderInterface;
+    public function addFormatter($formatter): HeaderInterface;
 }

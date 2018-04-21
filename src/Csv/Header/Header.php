@@ -11,7 +11,7 @@
 
 namespace RoadBunch\Csv\Header;
 
-
+use RoadBunch\Csv\Exception\FormatterException;
 use RoadBunch\Csv\Exception\InvalidInputArrayException;
 use RoadBunch\Csv\Formatter\FormatterInterface;
 
@@ -57,13 +57,20 @@ class Header implements HeaderInterface
     }
 
     /**
-     * @param FormatterInterface $formatter
+     * @param mixed $formatter
      * @return HeaderInterface
+     * @throws FormatterException
      */
-    public function addFormatter(FormatterInterface $formatter): HeaderInterface
+    public function addFormatter($formatter): HeaderInterface
     {
-        $this->formatters[] = $formatter;
-        return $this;
+        if ($formatter instanceof FormatterInterface) {
+            $this->formatters[] = $formatter;
+            return $this;
+        }
+        if (is_string($formatter)) {
+            return $this->addFormatterFromString($formatter);
+        }
+        throw new FormatterException('Invalid formatter provided, must implement FormatterInterface');
     }
 
     /**
@@ -74,8 +81,23 @@ class Header implements HeaderInterface
         $columns = $this->columns;
 
         foreach ($this->formatters as $formatter) {
-            $columns = $formatter->format($columns);
+            $columns = $formatter::format($columns);
         }
         return $columns;
+    }
+
+    /**
+     * @param $formatter
+     * @return $this
+     * @throws FormatterException
+     */
+    private function addFormatterFromString($formatter): Header
+    {
+        if (class_exists($formatter) && in_array(FormatterInterface::class, class_implements($formatter))) {
+            $this->formatters[] = $formatter;
+            return $this;
+        }
+        throw new FormatterException(sprintf('%s is not a class or does not implement FormatterInterface',
+            (string)$formatter));
     }
 }

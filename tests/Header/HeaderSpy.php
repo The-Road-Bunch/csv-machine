@@ -11,7 +11,6 @@
 
 namespace RoadBunch\Csv\Tests\Header;
 
-
 use RoadBunch\Csv\Header\Header;
 
 /**

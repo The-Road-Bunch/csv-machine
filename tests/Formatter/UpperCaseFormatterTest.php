@@ -11,7 +11,6 @@
 
 namespace RoadBunch\Csv\Tests\Formatter;
 
-
 use PHPUnit\Framework\TestCase;
 use RoadBunch\Csv\Formatter\UpperCaseFormatter;
 
@@ -34,9 +33,6 @@ class UpperCaseFormatterTest extends TestCase
         $testLowerCaseHeader = ['firstname', 'lastname', 'email'];
         $testUpperCaseHeader = ['FIRSTNAME', 'LASTNAME', 'EMAIL'];
 
-        $formatter   = new UpperCaseFormatter();
-        $formattedHeader = $formatter->format($testLowerCaseHeader);
-
-        $this->assertEquals($testUpperCaseHeader, $formattedHeader);
+        $this->assertEquals($testUpperCaseHeader, UpperCaseFormatter::format($testLowerCaseHeader));
     }
 }

@@ -10,6 +10,7 @@
  */
 
 namespace RoadBunch\Csv\Formatter;
+
 use RoadBunch\Csv\Exception\FormatterResultException;
 
 
@@ -19,35 +20,16 @@ use RoadBunch\Csv\Exception\FormatterResultException;
  * @author  Dan McAdams
  * @package RoadBunch\Csv\Formatter
  */
-class Formatter implements FormatterInterface
+abstract class AbstractFormatter implements FormatterInterface
 {
-    /** @var callable */
-    protected $callback;
-
-    /**
-     * Formatter constructor.
-     *
-     * @param callable $callback
-     */
-    public function __construct(callable $callback)
-    {
-        $this->callback = $callback;
-    }
-
-    /**
-     * @param array $data an array of strings to be formatted
-     *
-     * @return array
-     * @throws \InvalidArgumentException|FormatterResultException
-     */
-    public function format(array $data): array
+    protected static function applyFilter(callable $filter, array $data): array
     {
         $formatted = [];
         foreach ($data as $element) {
             if (!is_string($element)) {
                 throw new \InvalidArgumentException('All elements of the array must be strings');
             }
-            if (!is_string($formattedElement = call_user_func($this->callback, $element))) {
+            if (!is_string($formattedElement = call_user_func($filter, $element))) {
                 throw new FormatterResultException('Formatter must result in an array of strings');
             }
             $formatted[] = $formattedElement;

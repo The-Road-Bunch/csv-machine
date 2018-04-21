@@ -13,6 +13,7 @@ namespace RoadBunch\Csv\Tests\Csv;
 
 
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use RoadBunch\Csv as Csv;
 
 /**
@@ -23,6 +24,12 @@ use RoadBunch\Csv as Csv;
  */
 class CsvOptionsTest extends TestCase
 {
+    public function testCsvAcceptsLogger()
+    {
+        $csv = new CsvSpy(new NullLogger());
+        $this->assertNotNull($csv);
+    }
+
     public function testDefaultOptions()
     {
         $csv = new CsvSpy();

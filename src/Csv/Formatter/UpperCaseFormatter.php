@@ -18,26 +18,16 @@ namespace RoadBunch\Csv\Formatter;
  * @author  Dan McAdams
  * @package RoadBunch\Csv\Formatter
  */
-class UpperCaseFormatter implements FormatterInterface
+class UpperCaseFormatter extends AbstractFormatter
 {
-    /** @var FormatterInterface */
-    protected $formatter;
-
-    /**
-     * UpperCaseFormatter constructor.
-     */
-    public function __construct()
-    {
-        $this->formatter = new Formatter('mb_strtoupper');
-    }
-
     /**
      * @param array $data
      *
      * @return array
+     * @throws \RoadBunch\Csv\Exception\FormatterResultException
      */
-    public function format(array $data): array
+    public static function format(array $data): array
     {
-        return $this->formatter->format($data);
+        return self::applyFilter('mb_strtoupper', $data);
     }
 }

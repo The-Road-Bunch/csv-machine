@@ -11,15 +11,13 @@
 
 namespace RoadBunch\Csv\Tests\Header;
 
-
 use PHPUnit\Framework\TestCase;
+use RoadBunch\Csv\Exception\FormatterException;
 use RoadBunch\Csv\Exception\InvalidInputArrayException;
-use RoadBunch\Csv\Formatter\Formatter;
 use RoadBunch\Csv\Formatter\SplitCamelCaseWordsFormatter;
 use RoadBunch\Csv\Formatter\UnderscoreToSpaceFormatter;
 use RoadBunch\Csv\Formatter\UpperCaseWordsFormatter;
 use RoadBunch\Csv\Header\Header;
-use RoadBunch\Csv\Header\HeaderInterface;
 
 /**
  * Class HeaderTest
@@ -76,24 +74,42 @@ class HeaderTest extends TestCase
         $this->assertCount(count($testHeaderArray) + 1, $header->getFormattedColumns());
     }
 
-    public function testAddFormatterReturnsHeader()
+    public function testAddFormattersByClassName()
     {
-        $header = new Header([]);
-        $this->assertInstanceOf(HeaderInterface::class, $header->addFormatter(new Formatter(function () {})));
+        $header = new HeaderSpy(['first_name', 'last_name', 'camelCased']);
+        $header->addFormatter(UnderscoreToSpaceFormatter::class);
+        $this->assertCount(1, $header->getFormatters());
+        $header->addFormatter(UpperCaseWordsFormatter::class);
+        $this->assertCount(2, $header->getFormatters());
     }
 
-    public function testAddFormatters()
+    public function testAddFormattersByObject()
     {
         $header = new HeaderSpy(['first_name', 'last_name', 'camelCased']);
         $header->addFormatter(new UnderscoreToSpaceFormatter());
         $this->assertCount(1, $header->getFormatters());
         $header->addFormatter(new UpperCaseWordsFormatter());
         $this->assertCount(2, $header->getFormatters());
-        $header->addFormatter(new SplitCamelCaseWordsFormatter());
-        $this->assertCount(3, $header->getFormatters());
+    }
 
-        $formattedHeader = $header->getFormattedColumns();
-        $this->assertEquals(['First Name', 'Last Name', 'Camel Cased'], $formattedHeader);
+    public function testAddInvalidFormatterString()
+    {
+        $this->expectException(FormatterException::class);
+
+        $testHeaderArray = $this->getTestHeaderArray();
+        $header = new Header($testHeaderArray);
+
+        $header->addFormatter('fakeformatter');
+    }
+
+    public function testAddInvalidFormatterObject()
+    {
+        $this->expectException(FormatterException::class);
+
+        $testHeaderArray = $this->getTestHeaderArray();
+        $header = new Header($testHeaderArray);
+
+        $header->addFormatter(new Header([]));
     }
 
     /**

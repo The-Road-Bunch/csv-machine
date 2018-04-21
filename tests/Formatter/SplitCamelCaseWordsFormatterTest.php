@@ -11,8 +11,8 @@
 
 namespace RoadBunch\Csv\Tests\Formatter;
 
-
 use PHPUnit\Framework\TestCase;
+use RoadBunch\Csv\Formatter\AbstractFormatter;
 use RoadBunch\Csv\Formatter\SplitCamelCaseWordsFormatter;
 
 /**
@@ -23,20 +23,19 @@ use RoadBunch\Csv\Formatter\SplitCamelCaseWordsFormatter;
  */
 class SplitCamelCaseWordsFormatterTest extends TestCase
 {
-    public function testCreateFormatter()
-    {
-        $ccWordFormatter = new SplitCamelCaseWordsFormatter();
-        $this->assertNotNull($ccWordFormatter);
-    }
-
     public function testSplitCamelCase()
     {
-        $ccHeader = ['', 'stay_the_same', 'TestStringOne', 'TestStringTwo', 'TestABBRStrings', 'camelCase'];
-        $expected = ['', 'stay_the_same', 'Test String One', 'Test String Two', 'Test ABBR Strings', 'camel Case'];
+        $this->assertEquals(
+            ['', 'stay_the_same', 'Test String One', 'Test String Two'],
+            SplitCamelCaseWordsFormatter::format(['', 'stay_the_same', 'TestStringOne', 'TestStringTwo'])
+        );
+    }
 
-        $formatter       = new SplitCamelCaseWordsFormatter();
-        $formattedHeader = $formatter->format($ccHeader);
-
-        $this->assertEquals($expected, $formattedHeader);
+    public function testSplitCamelCaseWithAcronym()
+    {
+        $this->assertEquals(
+            ['the CSV Machine', 'Some NASA Stuff', 'Does T.H.I.S. Work...'],
+            SplitCamelCaseWordsFormatter::format(['theCSVMachine', 'SomeNASAStuff', 'DoesT.H.I.S.Work...'])
+        );
     }
 }

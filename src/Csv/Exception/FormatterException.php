@@ -9,21 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace RoadBunch\Csv\Formatter;
-
+namespace RoadBunch\Csv\Exception;
 
 /**
- * Interface FormatterInterface
+ * Class FormatterException
  *
  * @author  Dan McAdams
- * @package RoadBunch\Csv\Formatter
+ * @package RoadBunch\Csv\Exception
  */
-interface FormatterInterface
+class FormatterException extends \Exception
 {
-    /**
-     * @param array $data
-     *
-     * @return array
-     */
-    public static function format(array $data): array;
 }
