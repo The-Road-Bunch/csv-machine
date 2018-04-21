@@ -36,7 +36,6 @@ abstract class Csv implements CsvInterface
      */
     public function __construct(LoggerInterface $logger = null)
     {
-        $this->logger = $logger;
         $this->logger = null !== $logger ? $logger : new NullLogger();
     }
 
