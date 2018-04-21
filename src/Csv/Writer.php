@@ -11,6 +11,8 @@
 
 namespace RoadBunch\Csv;
 
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 use RoadBunch\Csv\Exception\FormatterException;
 use RoadBunch\Csv\Exception\InvalidInputArrayException;
 use RoadBunch\Csv\Header\Header;
@@ -37,6 +39,16 @@ class Writer extends Csv implements WriterInterface
     protected $handle;
 
     /**
+     * Writer constructor.
+     * @param LoggerInterface|null $logger
+     */
+    public function __construct(LoggerInterface $logger = null)
+    {
+        parent::__construct($logger);
+        $this->logger->info(sprintf('New %s created', __CLASS__));
+    }
+
+    /**
      * @param array $header
      * @param mixed $formatters
      * @return void
@@ -50,6 +62,7 @@ class Writer extends Csv implements WriterInterface
             $header->addFormatter($formatter);
         }
         $this->header = $header;
+        $this->logger->debug('Header row set');
     }
 
     /**
@@ -61,6 +74,7 @@ class Writer extends Csv implements WriterInterface
     public function addRow(array $row = [])
     {
         $this->rows[] = $row;
+        $this->logger->debug(sprintf('Row added with %d elements', count($row)));
     }
 
     /**
@@ -72,9 +86,10 @@ class Writer extends Csv implements WriterInterface
     {
         foreach ($rows as $row) {
             if (!is_array($row)) {
+                $this->logger->critical('Each row must be an array');
                 throw new InvalidInputArrayException('Element must be an array');
             }
-            $this->rows[] = $row;
+            $this->addRow($row);
         }
     }
 
@@ -111,8 +126,13 @@ class Writer extends Csv implements WriterInterface
         $this->handle = fopen($filename, 'w+');
 
         if (false === $this->handle) {
-            throw new \Exception(sprintf('Could not open file for writing. %s', error_get_last()['message']));
+            $message = !empty(error_get_last()['message']) ? error_get_last()['message'] : '';
+            $message = sprintf('Could not open file for writing. %s', $message);
+
+            $this->logger->critical($message);
+            throw new \Exception($message);
         }
+        $this->logger->info(sprintf('Opening stream %s', $filename));
         $this->setSeekableFlag();
     }
 
@@ -123,10 +143,17 @@ class Writer extends Csv implements WriterInterface
     {
         if (!empty($this->header)) {
             $this->writeRow($this->header->getFormattedColumns());
+            $this->logger->info('Header row written');
         }
+        $rowCount = 0;
         foreach ($this->rows as $row) {
             $this->writeRow($row);
+            $rowCount++;
         }
+        $this->logger->log(
+            $level = (0 === $rowCount) ? LogLevel::WARNING : LogLevel::INFO,
+            sprintf('%d rows written', $rowCount)
+        );
     }
 
     /**
@@ -150,6 +177,7 @@ class Writer extends Csv implements WriterInterface
     {
         if ((Newline::NEWLINE_LF !== $this->newline) && (0 === fseek($this->handle, -1, SEEK_CUR))) {
             fwrite($this->handle, $this->newline);
+            $this->logger->debug(sprintf('Update newline character %s', addslashes($this->newline)));
         }
     }
 
@@ -159,6 +187,7 @@ class Writer extends Csv implements WriterInterface
     private function closeStream()
     {
         fclose($this->handle);
+        $this->logger->info('Stream closed');
     }
 
     /**
@@ -169,8 +198,10 @@ class Writer extends Csv implements WriterInterface
     {
         if (stream_get_meta_data($this->handle)['seekable']) {
             $this->isStreamSeekable = true;
+            $this->logger->debug('Stream is seekable');
             return;
         }
         $this->isStreamSeekable = false;
+        $this->logger->debug('Stream is not seekable');
     }
 }
