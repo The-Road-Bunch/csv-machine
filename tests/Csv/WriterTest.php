@@ -12,6 +12,7 @@
 namespace RoadBunch\Csv\Tests\Csv;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use RoadBunch\Csv;
 
 /**
@@ -34,12 +35,6 @@ class WriterTest extends TestCase
         if (is_file($this->filename)) {
             unlink($this->filename);
         }
-    }
-
-    public function testCreateWriter()
-    {
-        $writer = new WriterSpy();
-        $this->assertNotNull($writer);
     }
 
     public function testAddRow()
