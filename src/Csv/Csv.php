@@ -11,18 +11,33 @@
 
 namespace RoadBunch\Csv;
 
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+
 /**
  * Class Csv
  *
  * @author  Dan McAdams
  * @package RoadBunch\Csv
  */
-class Csv implements CsvInterface
+abstract class Csv implements CsvInterface
 {
     protected $delimiter = Delimiter::DELIMITER_COMMA;
     protected $enclosure = Enclosure::ENCLOSURE_DOUBLE_QUOTE;
     protected $newline   = Newline::NEWLINE_LF;
     protected $escape    = Escape::ESCAPE_CHAR;
+
+    /** @var LoggerInterface */
+    protected $logger;
+
+    /**
+     * Csv constructor.
+     * @param LoggerInterface|null $logger
+     */
+    public function __construct(LoggerInterface $logger = null)
+    {
+        $this->logger = null !== $logger ? $logger : new NullLogger();
+    }
 
     /**
      * @param string $delimiter
@@ -30,6 +45,7 @@ class Csv implements CsvInterface
     public function setDelimiter(string $delimiter)
     {
         $this->delimiter = $delimiter;
+        $this->logger->info('Delimiter character set ' . json_encode($delimiter));
     }
 
     /**
@@ -38,6 +54,7 @@ class Csv implements CsvInterface
     public function setEnclosure(string $enclosure)
     {
         $this->enclosure = $enclosure;
+        $this->logger->info('Enclosure character set ' . json_encode($enclosure));
     }
 
     /**
@@ -46,6 +63,7 @@ class Csv implements CsvInterface
     public function setNewline(string $newline)
     {
         $this->newline = $newline;
+        $this->logger->info('Newline character set ' . json_encode($newline));
     }
 
     /**
@@ -54,5 +72,6 @@ class Csv implements CsvInterface
     public function setEscape(string $escape)
     {
         $this->escape = $escape;
+        $this->logger->info('Escape character set ' . json_encode($escape));
     }
 }

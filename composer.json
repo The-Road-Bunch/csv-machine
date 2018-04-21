@@ -29,6 +29,6 @@
         "symfony/var-dumper": "^3.4"
     },
     "suggest": {
-        "monolog/monolog": "Allows for logging of the csv machining."
+        "monolog/monolog": "Allows for in-depth logging of the csv machining."
     }
 }

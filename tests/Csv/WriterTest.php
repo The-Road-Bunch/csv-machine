@@ -12,7 +12,6 @@
 namespace RoadBunch\Csv\Tests\Csv;
 
 use PHPUnit\Framework\TestCase;
-use Psr\Log\NullLogger;
 use RoadBunch\Csv;
 
 /**
