@@ -74,18 +74,22 @@ class HeaderTest extends TestCase
         $this->assertCount(count($testHeaderArray) + 1, $header->getFormattedColumns());
     }
 
-    public function testAddFormatters()
+    public function testAddFormattersByClassName()
     {
         $header = new HeaderSpy(['first_name', 'last_name', 'camelCased']);
         $header->addFormatter(UnderscoreToSpaceFormatter::class);
         $this->assertCount(1, $header->getFormatters());
         $header->addFormatter(UpperCaseWordsFormatter::class);
         $this->assertCount(2, $header->getFormatters());
-        $header->addFormatter(SplitCamelCaseWordsFormatter::class);
-        $this->assertCount(3, $header->getFormatters());
+    }
 
-        $formattedHeader = $header->getFormattedColumns();
-        $this->assertEquals(['First Name', 'Last Name', 'Camel Cased'], $formattedHeader);
+    public function testAddFormattersByObject()
+    {
+        $header = new HeaderSpy(['first_name', 'last_name', 'camelCased']);
+        $header->addFormatter(new UnderscoreToSpaceFormatter());
+        $this->assertCount(1, $header->getFormatters());
+        $header->addFormatter(new UpperCaseWordsFormatter());
+        $this->assertCount(2, $header->getFormatters());
     }
 
     public function testAddInvalidFormatterString()
