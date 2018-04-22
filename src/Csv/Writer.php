@@ -62,7 +62,6 @@ class Writer extends Csv implements WriterInterface
             $header->addFormatter($formatter);
         }
         $this->header = $header;
-        $this->logger->debug('Header row set');
     }
 
     /**
@@ -74,7 +73,6 @@ class Writer extends Csv implements WriterInterface
     public function addRow(array $row = [])
     {
         $this->rows[] = $row;
-        $this->logger->debug(sprintf('Row added with %d elements', count($row)));
     }
 
     /**
@@ -112,9 +110,14 @@ class Writer extends Csv implements WriterInterface
      */
     public function saveToFile(string $filename)
     {
+        $startTime = new \DateTime();
+
         $this->openStream($filename);
         $this->writeRows();
         $this->closeStream();
+
+        $interval = $startTime->diff(new \DateTime());
+        $this->logger->info(sprintf('Process finished in %d minute(s) %d second(s).', $interval->i, $interval->s));
     }
 
     /**
@@ -141,19 +144,23 @@ class Writer extends Csv implements WriterInterface
      */
     private function writeRows()
     {
+        // write header to CSV if it exist
         if (!empty($this->header)) {
             $this->writeRow($this->header->getFormattedColumns());
             $this->logger->info('Header row written');
         }
-        $rowCount = 0;
+
+        $this->logger->info('Writing rows to CSV');
+
+        // write rows
         foreach ($this->rows as $row) {
             $this->writeRow($row);
-            $rowCount++;
         }
-        $this->logger->log(
-            $level = (0 === $rowCount) ? LogLevel::WARNING : LogLevel::INFO,
-            sprintf('%d rows written', $rowCount)
-        );
+
+        // A zero row CSV if fine to make, but we'll log a warning here
+        // in case the library's user is expecting rows to be added
+        $rowCount = count($this->rows);
+        $this->logger->log($rowCount < 1 ? LogLevel::WARNING : LogLevel::INFO, sprintf('%d rows written', $rowCount));
     }
 
     /**
