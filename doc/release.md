@@ -1,5 +1,10 @@
-## The CSV Machine
-## 1.0.0-alpha.1
+# The CSV Machine
+## v1.0.0-alpha.2
+APR 22, 2018 - 13:25 CST
+### Notes
+- remove info logging on add row, this was slowing things down significantly
+
+## v1.0.0-alpha.1
 APR 21, 2018 - 17:35 CST
 ### Notes
 - pre-release version  

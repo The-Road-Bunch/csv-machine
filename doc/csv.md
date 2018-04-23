@@ -1,11 +1,13 @@
 ### Csv Methods
 
 ```php
-Csv::setDelimiter(string);
+Csv::__construct(LoggerInterface $logger = null)
 
-Csv::setEnclosure(string);
+Csv::setDelimiter(string $delimiter);
 
-Csv::setNewline(string);
+Csv::setEnclosure(string $enclosure);
 
-Csv::setEscape(string);
+Csv::setNewline(string $newline);
+
+Csv::setEscape(string $escape);
 ```
