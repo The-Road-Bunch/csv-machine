@@ -41,7 +41,7 @@ echo $writer->writeToString();
 
 ### Create your own formatter  
 
-**extend** `Csv\Formatter\Formatter`  
+**extend** `\RoadBunch\Csv\Formatter\AbstractFormatter`  
 **call** `self::filterArray(callable $filter, array $data)`
 
 **Example**
