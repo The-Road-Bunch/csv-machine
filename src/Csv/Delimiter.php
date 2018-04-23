@@ -21,10 +21,10 @@ namespace RoadBunch\Csv;
  */
 class Delimiter
 {
-    const DELIMITER_COMMA     = ",";
-    const DELIMITER_PIPE      = "|";
-    const DELIMITER_SEMICOLON = ";";
-    const DELIMITER_COLON     = ":";
-    const DELIMITER_SPACE     = " ";
-    const DELIMITER_TAB       = "\t";
+    const COMMA     = ",";
+    const PIPE      = "|";
+    const SEMICOLON = ";";
+    const COLON     = ":";
+    const SPACE     = " ";
+    const TAB       = "\t";
 }

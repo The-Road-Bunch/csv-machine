@@ -21,6 +21,6 @@ namespace RoadBunch\Csv;
  */
 class Enclosure
 {
-    const ENCLOSURE_DOUBLE_QUOTE = '"';
-    const ENCLOSURE_SINGLE_QUOTE = "'";
+    const DOUBLE_QUOTE = '"';
+    const SINGLE_QUOTE = "'";
 }

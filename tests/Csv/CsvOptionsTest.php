@@ -33,16 +33,16 @@ class CsvOptionsTest extends TestCase
     public function testDefaultOptions()
     {
         $csv = new CsvSpy();
-        $this->assertEquals(Csv\Delimiter::DELIMITER_COMMA          , $csv->getDelimiter());
-        $this->assertEquals(Csv\Enclosure::ENCLOSURE_DOUBLE_QUOTE   , $csv->getEnclosure());
-        $this->assertEquals(Csv\Newline::NEWLINE_LF                 , $csv->getNewline());
-        $this->assertEquals(Csv\Escape::ESCAPE_CHAR                 , $csv->getEscapeCharacter());
+        $this->assertEquals(Csv\Delimiter::COMMA          , $csv->getDelimiter());
+        $this->assertEquals(Csv\Enclosure::DOUBLE_QUOTE   , $csv->getEnclosure());
+        $this->assertEquals(Csv\Newline::LF                 , $csv->getNewline());
+        $this->assertEquals(Csv\Escape::BACKSLASH                 , $csv->getEscapeCharacter());
     }
 
     public function testSetDelimiter()
     {
         $csv           = new CsvSpy();
-        $testDelimiter = Csv\Delimiter::DELIMITER_COLON;
+        $testDelimiter = Csv\Delimiter::COLON;
 
         $csv->setDelimiter($testDelimiter);
         $this->assertEquals($testDelimiter, $csv->getDelimiter());
@@ -51,7 +51,7 @@ class CsvOptionsTest extends TestCase
     public function testSetEnclosure()
     {
         $csv           = new CsvSpy();
-        $testEnclosure = Csv\Enclosure::ENCLOSURE_SINGLE_QUOTE;
+        $testEnclosure = Csv\Enclosure::SINGLE_QUOTE;
 
         $csv->setEnclosure($testEnclosure);
         $this->assertEquals($testEnclosure, $csv->getEnclosure());
@@ -60,7 +60,7 @@ class CsvOptionsTest extends TestCase
     public function testSetNewline()
     {
         $csv         = new CsvSpy();
-        $testNewline = Csv\Newline::NEWLINE_CRLF;
+        $testNewline = Csv\Newline::CRLF;
 
         $csv->setNewline($testNewline);
         $this->assertEquals($testNewline, $csv->getNewline());

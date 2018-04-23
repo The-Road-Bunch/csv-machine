@@ -21,7 +21,7 @@ namespace RoadBunch\Csv;
  */
 class Newline
 {
-    const NEWLINE_LF   = "\n";
-    const NEWLINE_CR   = "\r";
-    const NEWLINE_CRLF = "\r\n";
+    const LF   = "\n";
+    const CR   = "\r";
+    const CRLF = "\r\n";
 }

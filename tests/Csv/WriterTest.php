@@ -167,9 +167,9 @@ class WriterTest extends TestCase
      */
     public function testWriteCsvDifferentLineEndings(Csv\Writer $writer)
     {
-        $writer->setNewline(Csv\Newline::NEWLINE_CRLF);
+        $writer->setNewline(Csv\Newline::CRLF);
         $writer->saveToFile($this->filename);
-        $this->assertLineEnding(Csv\Newline::NEWLINE_CRLF);
+        $this->assertLineEnding(Csv\Newline::CRLF);
     }
 
     private function assertCsvWrittenToFile($header, $rows)

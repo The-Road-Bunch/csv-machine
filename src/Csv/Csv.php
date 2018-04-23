@@ -22,10 +22,10 @@ use Psr\Log\NullLogger;
  */
 abstract class Csv implements CsvInterface
 {
-    protected $delimiter = Delimiter::DELIMITER_COMMA;
-    protected $enclosure = Enclosure::ENCLOSURE_DOUBLE_QUOTE;
-    protected $newline   = Newline::NEWLINE_LF;
-    protected $escape    = Escape::ESCAPE_CHAR;
+    protected $delimiter = Delimiter::COMMA;
+    protected $enclosure = Enclosure::DOUBLE_QUOTE;
+    protected $newline   = Newline::LF;
+    protected $escape    = Escape::BACKSLASH;
 
     /** @var LoggerInterface */
     protected $logger;

@@ -21,5 +21,5 @@ namespace RoadBunch\Csv;
  */
 class Escape
 {
-    const ESCAPE_CHAR = "\\";
+    const BACKSLASH = "\\";
 }
