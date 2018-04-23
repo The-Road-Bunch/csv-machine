@@ -110,14 +110,9 @@ class Writer extends Csv implements WriterInterface
      */
     public function saveToFile(string $filename)
     {
-        $startTime = new \DateTime();
-
         $this->openStream($filename);
         $this->writeRows();
         $this->closeStream();
-
-        $interval = $startTime->diff(new \DateTime());
-        $this->logger->info(sprintf('Process finished in %d minute(s) %d second(s).', $interval->i, $interval->s));
     }
 
     /**
@@ -144,10 +139,12 @@ class Writer extends Csv implements WriterInterface
      */
     private function writeRows()
     {
+        $rowCount = 0;
         // write header to CSV if it exist
         if (!empty($this->header)) {
             $this->writeRow($this->header->getFormattedColumns());
             $this->logger->info('Header row written');
+            $rowCount++;
         }
 
         $this->logger->info('Writing rows to CSV');
@@ -159,8 +156,8 @@ class Writer extends Csv implements WriterInterface
 
         // A zero row CSV if fine to make, but we'll log a warning here
         // in case the library's user is expecting rows to be added
-        $rowCount = count($this->rows);
-        $this->logger->log($rowCount < 1 ? LogLevel::WARNING : LogLevel::INFO, sprintf('%d rows written', $rowCount));
+        $rowCount += count($this->rows);
+        $this->logger->log($rowCount < 1 ? LogLevel::WARNING : LogLevel::INFO, sprintf('%d total rows written', $rowCount));
     }
 
     /**
@@ -182,7 +179,7 @@ class Writer extends Csv implements WriterInterface
      */
     private function updateNewLine()
     {
-        if ((Newline::NEWLINE_LF !== $this->newline) && (0 === fseek($this->handle, -1, SEEK_CUR))) {
+        if ((Newline::LF !== $this->newline) && (0 === fseek($this->handle, -1, SEEK_CUR))) {
             fwrite($this->handle, $this->newline);
             $this->logger->debug(sprintf('Update newline character %s', addslashes($this->newline)));
         }
