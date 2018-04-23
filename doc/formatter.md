@@ -3,19 +3,19 @@ If you find yourself wanting to clean up those nasty looking header names you pu
 Using a variety of provided formatters, you can format an array quickly and easily.
 
 ### Available Formatters
- Formatter | Ex: original | Ex: formatted 
+ Formatter | input header | output header
 :-----------|:----------|:-------
-SplitCamelCaseWordsFormatter::class | splitCamelCase | split Camel Case 
-UnderscoreToSpaceFormatter::class | words_with_underscores | words with underscores 
-UpperCaseFormatter::class | upper case formatter | UPPER CASE FORMATTER 
-UpperCaseWordsFormatter::class | upper case_words formatter | Upper Case_Words Formatter 
+SplitCamelCaseWordsFormatter::class | `['splitCamelCase']` | `['split Camel Case']` 
+UnderscoreToSpaceFormatter::class | `['words_with_underscores']` | `['words with underscores']` 
+UpperCaseFormatter::class | `['upper case']` | `['UPPER CASE']` 
+UpperCaseWordsFormatter::class | `['upper case_words']` | `['Upper Case_Words']` 
 
 _Note:_ `SplitCamelCaseWordsFormatter` can split camel case strings with acronyms and abbreviations
 
- Formatter | Ex: original | Ex: formatted 
+ Formatter | input header | output header  
 :-----------|:----------|:-------
-SplitCamelCaseWordsFormatter::class | TheCSVMachine | The CSV Machine
-SplitCamelCaseWordsFormatter::class | evenT.H.I.S.Works | even T.H.I.S. Works
+SplitCamelCaseWordsFormatter::class | `['TheCSVMachine']` | `['The CSV Machine']`
+SplitCamelCaseWordsFormatter::class | `['evenT.H.I.S.Works']` | `['even T.H.I.S. Works']`
 
 ### Usage
 ```php
