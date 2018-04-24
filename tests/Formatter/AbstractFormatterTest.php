@@ -24,7 +24,7 @@ use RoadBunch\Csv\Formatter\UnderscoreToSpaceFormatter;
  * @author  Dan McAdams
  * @package RoadBunch\Csv\Tests\Formatters
  */
-class FormatterTest extends TestCase
+class AbstractFormatterTest extends TestCase
 {
     public function testArrayOfNonStrings()
     {
