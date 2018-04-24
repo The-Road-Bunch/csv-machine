@@ -25,4 +25,9 @@ class StreamHandlerSpy extends StreamHandler
     {
         return $this->path;
     }
+
+    public function getMode()
+    {
+        return $this->mode;
+    }
 }
