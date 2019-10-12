@@ -52,7 +52,7 @@ class LowerCaseFormatter extends \RoadBunch\Csv\Formatter\AbstractFormatter
 {
     public static function format(array $data): array
     {
-        return self::applyFilter(function ($var) {
+        return self::formatElements(function ($var) {
             return strtolower($var);
         }, $data);
     }

@@ -28,7 +28,7 @@ class UpperCaseWordsFormatter extends AbstractFormatter
      */
     public static function format(array $data): array
     {
-        return self::applyFilter(function($var) {
+        return self::formatElements(function($var) {
             $del = [" ", "-", "_", "."];
             return ucwords($var, implode('', $del));
         }, $data);

@@ -67,7 +67,7 @@ class AbstractFormatterTest extends TestCase
         {
             public static function format(array $data): array
             {
-                return self::applyFilter(function ($var) {
+                return self::formatElements(function ($var) {
                     return strtoupper($var);
                 }, $data);
             }
@@ -84,7 +84,7 @@ class AbstractFormatterTest extends TestCase
         {
             public static function format(array $data): array
             {
-                return self::applyFilter(function ($var) {
+                return self::formatElements(function ($var) {
                     return explode('_', $var);
                 }, $data);
             }

@@ -28,7 +28,7 @@ class UnderscoreToSpaceFormatter extends AbstractFormatter
      */
     public static function format(array $data): array
     {
-        return self::applyFilter(function ($var) {
+        return self::formatElements(function ($var) {
             return str_replace('_', ' ', $var);
         }, $data);
     }

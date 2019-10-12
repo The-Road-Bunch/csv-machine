@@ -28,6 +28,6 @@ class UpperCaseFormatter extends AbstractFormatter
      */
     public static function format(array $data): array
     {
-        return self::applyFilter('mb_strtoupper', $data);
+        return self::formatElements('mb_strtoupper', $data);
     }
 }

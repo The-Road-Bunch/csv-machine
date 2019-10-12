@@ -22,7 +22,7 @@ use RoadBunch\Csv\Exception\FormatterResultException;
  */
 abstract class AbstractFormatter implements FormatterInterface
 {
-    protected static function applyFilter(callable $filter, array $data): array
+    protected static function formatElements(callable $filter, array $data): array
     {
         $formatted = [];
         foreach ($data as $element) {
