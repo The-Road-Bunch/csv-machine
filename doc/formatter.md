@@ -42,7 +42,7 @@ echo $writer->writeToString();
 ### Create your own formatter  
 
 **extend** `\RoadBunch\Csv\Formatter\AbstractFormatter`  
-**call** `self::filterArray(callable $filter, array $data)`
+**call** `self::applyFilter(callable $filter, array $data)`
 
 **Example**
 ```php
@@ -50,10 +50,6 @@ echo $writer->writeToString();
 
 class LowerCaseFormatter extends \RoadBunch\Csv\Formatter\AbstractFormatter 
 {
-    /**
-     * @param array $data
-     * @return array
-     */
     public static function format(array $data): array
     {
         return self::applyFilter(function ($var) {
