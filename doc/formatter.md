@@ -21,15 +21,18 @@ SplitCamelCaseWordsFormatter::class | `['evenT.H.I.S.Works']` | `['even T.H.I.S.
 ```php
 <?php
 
-use \RoadBunch\Csv as Csv;
-use \RoadBunch\Csv\Formatter as Formatter;
+use RoadBunch\Csv as Csv;
+use RoadBunch\Csv\Formatter\UpperCaseWordsFormatter;
+use RoadBunch\Csv\Formatter\UnderscoreToSpaceFormatter;
 
 $writer = new Csv\Writer();
+$header = [ 'first_column', 'second_column' ];
+
 $writer->setHeader(
-    [ 'first_column', 'second_column' ], 
+    $header, 
     [
-        Formatter\UpperCaseWordsFormatter::class, 
-        Formatter\UnderscoreToSpaceFormatter::class
+        UpperCaseWordsFormatter::create(), 
+        UnderscoreToSpaceFormatter::create(),       
     ]
 );
 
@@ -37,26 +40,21 @@ echo $writer->writeToString();
 
 // output
 "First Column","Second Column"
+
+$writer->setHeader(
+    ['USERNAME', 'ADDRESS'],
+    [
+        new Csv\Formatter\Formatter('strtolower'),
+        new Csv\Formatter\Formatter(function ($var) {
+            return ucfirst($var);
+        })
+    ]
+);
+
+echo $writer->writeToString();
+
+// output
+"Username","Address"
 ```
 
-### Create your own formatter  
-
-**extend** `\RoadBunch\Csv\Formatter\AbstractFormatter`  
-**call** `self::applyFilter(callable $filter, array $data)`
-
-**Example**
-```php
-<?php
-
-class LowerCaseFormatter extends \RoadBunch\Csv\Formatter\AbstractFormatter 
-{
-    public static function format(array $data): array
-    {
-        return self::formatElements(function ($var) {
-            return strtolower($var);
-        }, $data);
-    }
-};
-```
-
-For more information, take a look at the [FormatterInterface](../src/Csv/Formatter/FormatterInterface.php) and the [AbstractFormatter](../src/Csv/Formatter/AbstractFormatter.php)
+For more information, take a look at the [FormatterInterface](../src/Csv/Formatter/FormatterInterface.php) and the [AbstractFormatter](../src/Csv/Formatter/Formatter.php)

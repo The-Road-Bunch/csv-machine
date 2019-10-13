@@ -18,17 +18,11 @@ namespace RoadBunch\Csv\Formatter;
  * @author  Dan McAdams
  * @package RoadBunch\Csv\Formatter
  */
-class SplitCamelCaseWordsFormatter extends AbstractFormatter
+class SplitCamelCaseWordsFormatter implements FactoryInterface
 {
-    /**
-     * @param array $data
-     *
-     * @return array
-     * @throws \RoadBunch\Csv\Exception\FormatterResultException
-     */
-    public static function format(array $data): array
+    public static function create(): FormatterInterface
     {
-        return self::formatElements(function ($var) {
+        return new Formatter(function ($var) {
             $regex = '/(?<=[a-z])(?=[A-Z])|(?<=[A-Z\.])(?=[A-Z][a-z])/x';
             $words = preg_split($regex, $var, $limit = -1, PREG_SPLIT_NO_EMPTY);
 
@@ -36,6 +30,6 @@ class SplitCamelCaseWordsFormatter extends AbstractFormatter
                 return implode(' ', $words);
             };
             return $var;
-        }, $data);
+        });
     }
 }

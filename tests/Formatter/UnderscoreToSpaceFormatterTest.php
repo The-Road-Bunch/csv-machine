@@ -12,6 +12,7 @@
 namespace RoadBunch\Csv\Tests\Formatter;
 
 use PHPUnit\Framework\TestCase;
+use RoadBunch\Csv\Formatter\FormatterInterface;
 use RoadBunch\Csv\Formatter\UnderscoreToSpaceFormatter;
 
 /**
@@ -22,10 +23,12 @@ use RoadBunch\Csv\Formatter\UnderscoreToSpaceFormatter;
  */
 class UnderscoreToSpaceFormatterTest extends TestCase
 {
+    /** @var FormatterInterface */
+    private $formatter;
+
     public function testCreateFormatter()
     {
-        $formatter = new UnderscoreToSpaceFormatter();
-        $this->assertNotNull($formatter);
+        $this->assertNotNull($this->formatter);
     }
 
     public function testReplacesUnderscoresWithSpaces()
@@ -33,6 +36,11 @@ class UnderscoreToSpaceFormatterTest extends TestCase
         $testLowerCaseHeader = ['first___name', 'last_name', 'email address'];
         $testUpperCaseHeader = ['first   name', 'last name', 'email address'];
 
-        $this->assertEquals($testUpperCaseHeader, UnderscoreToSpaceFormatter::format($testLowerCaseHeader));
+        $this->assertEquals($testUpperCaseHeader, $this->formatter->format($testLowerCaseHeader));
+    }
+
+    protected function setUp()
+    {
+        $this->formatter = UnderscoreToSpaceFormatter::create();
     }
 }

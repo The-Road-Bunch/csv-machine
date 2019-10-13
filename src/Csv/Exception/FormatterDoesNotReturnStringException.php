@@ -17,6 +17,6 @@ namespace RoadBunch\Csv\Exception;
  * @author  Dan McAdams
  * @package RoadBunch\Csv\Exception
  */
-class FormatterResultException extends \Exception
+class FormatterDoesNotReturnStringException extends \Exception
 {
 }

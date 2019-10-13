@@ -22,17 +22,13 @@ use RoadBunch\Csv\Formatter\UpperCaseFormatter;
  */
 class UpperCaseFormatterTest extends TestCase
 {
-    public function testCreateFormatter()
-    {
-        $formatter = new UpperCaseFormatter();
-        $this->assertNotNull($formatter);
-    }
-
     public function testConvertsLowerCaseToUpperCase()
     {
+        $formatter = UpperCaseFormatter::create();
+
         $testLowerCaseHeader = ['firstname', 'lastname', 'email'];
         $testUpperCaseHeader = ['FIRSTNAME', 'LASTNAME', 'EMAIL'];
 
-        $this->assertEquals($testUpperCaseHeader, UpperCaseFormatter::format($testLowerCaseHeader));
+        $this->assertEquals($testUpperCaseHeader, $formatter->format($testLowerCaseHeader));
     }
 }

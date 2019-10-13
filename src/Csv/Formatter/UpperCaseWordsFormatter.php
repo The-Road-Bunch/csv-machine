@@ -18,19 +18,13 @@ namespace RoadBunch\Csv\Formatter;
  * @author  Dan McAdams
  * @package RoadBunch\Csv\Formatter
  */
-class UpperCaseWordsFormatter extends AbstractFormatter
+class UpperCaseWordsFormatter implements FactoryInterface
 {
-    /**
-     * @param array $data
-     *
-     * @return array
-     * @throws \RoadBunch\Csv\Exception\FormatterResultException
-     */
-    public static function format(array $data): array
+    public static function create(): FormatterInterface
     {
-        return self::formatElements(function($var) {
+        return new Formatter(function($var) {
             $del = [" ", "-", "_", "."];
             return ucwords($var, implode('', $del));
-        }, $data);
+        });
     }
 }
