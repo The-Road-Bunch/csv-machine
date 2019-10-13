@@ -11,8 +11,6 @@
 
 namespace RoadBunch\Csv\Formatter;
 
-use RoadBunch\Csv\Exception\FormatterDoesNotReturnStringException;
-
 
 /**
  * Class Formatter
