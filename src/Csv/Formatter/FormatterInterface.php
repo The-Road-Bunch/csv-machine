@@ -20,10 +20,5 @@ namespace RoadBunch\Csv\Formatter;
  */
 interface FormatterInterface
 {
-    /**
-     * @param array $data
-     *
-     * @return array
-     */
     public function format(array $data): array;
 }
