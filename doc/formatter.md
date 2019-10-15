@@ -26,10 +26,9 @@ use RoadBunch\Csv\Formatter\UpperCaseWordsFormatter;
 use RoadBunch\Csv\Formatter\UnderscoreToSpaceFormatter;
 
 $writer = new Csv\Writer();
-$header = [ 'first_column', 'second_column' ];
 
 $writer->setHeader(
-    $header, 
+    [ 'first_column', 'second_column' ], 
     [
         UpperCaseWordsFormatter::create(), 
         UnderscoreToSpaceFormatter::create(),       
@@ -40,6 +39,10 @@ echo $writer->writeToString();
 
 // output
 "First Column","Second Column"
+```
+Use your own formatters
+```php
+$writer = new Csv\Writer();
 
 $writer->setHeader(
     ['USERNAME', 'ADDRESS'],
